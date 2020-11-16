@@ -1,0 +1,69 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+@mixin _scrolledHeights {
+  .header__top {
+    height: 85px;
+  }
+
+  .header__logo {
+    svg {
+      height: 50px;
+    }
+  }
+}
+
+._ {
+  background: $offBlack;
+  height: 60px;
+  z-index: 1;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  border-bottom: 1px solid $offBlack;
+  transition: all 250ms ease-in-out;
+
+  a {
+    color: white;
+  }
+
+  &.scrolled {
+    border-bottom: 1px solid $white;
+  }
+
+  @include _minWidthMobile {
+    height: 80px;
+
+    &.scrolled {
+      height: 60px;
+    }
+  }
+}
+
+.container {
+  @include _container;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.logo {
+  cursor: pointer;
+  margin-right: 100px;
+  @include _hoverAnimation;
+
+  a {
+    position: relative;
+    height: 40px;
+    width: 40px;
+  }
+
+  svg {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+}

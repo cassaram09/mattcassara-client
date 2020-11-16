@@ -1,0 +1,63 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+._ {
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+  display: block;
+  width: 36px;
+
+  @include _hoverAnimation;
+
+  &.white {
+    .line {
+      background-color: $white;
+    }
+  }
+
+  &.black {
+    .line {
+      background-color: $black;
+    }
+  }
+}
+
+.line {
+  height: 3px;
+  width: 100%;
+  display: block;
+  background-color: $white;
+  position: absolute;
+  transform: rotate(0deg);
+  transition: all 175ms ease-in-out;
+  opacity: 1;
+  transform-origin: center;
+
+  &:nth-child(1) {
+    top: 0px;
+
+    &.line_1 {
+      transform: translateY(-50%) rotate(45deg);
+      top: 50%;
+    }
+  }
+
+  &:nth-child(2) {
+    top: 50%;
+    transform: translateY(-25%);
+
+    &.line_2 {
+      opacity: 0;
+    }
+  }
+
+  &:nth-child(3) {
+    top: 100%;
+    transform: translateY(-100%);
+    &.line_3 {
+      transform: translateY(-50%) rotate(-45deg);
+      top: 50%;
+    }
+  }
+}

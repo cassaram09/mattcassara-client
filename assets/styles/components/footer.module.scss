@@ -1,0 +1,51 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+._ {
+  background: $offBlack;
+  padding: 25px 0px;
+  position: relative;
+  top: 60px;
+
+  @include _minWidthMobile {
+    padding: 0px;
+    height: 50px;
+    top: 80px;
+  }
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  @include _container;
+
+  @include _minWidthMobile {
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+}
+
+.copyright {
+  p {
+    color: white;
+    @include _fontSize(14px, 16px);
+  }
+}
+
+.social {
+  display: flex;
+}
+
+.social__item {
+  display: flex;
+
+  svg {
+    fill: white;
+    width: 20px;
+  }
+
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+}

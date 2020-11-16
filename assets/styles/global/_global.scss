@@ -1,0 +1,207 @@
+@import "./_variables.scss";
+@import "./_mixins.scss";
+
+* {
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none !important;
+  }
+
+  &.focus-visible {
+    outline: 1px solid #4d90fe !important;
+    outline: auto #4d90fe !important;
+  }
+}
+
+div {
+  -ms-overflow-style: none;
+}
+// Base for REM sizing
+:root,
+html {
+  font-size: $rootFontSize;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  outline: none;
+  position: relative;
+  background: #131313;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  margin: 0px;
+  padding: 0px;
+  color: $white;
+  letter-spacing: 0px;
+  @include _headingFont;
+}
+
+h1 {
+  @include _h1Size;
+  @include _headingMarginLarge;
+}
+
+h2 {
+  @include _h2Size;
+  @include _headingMarginLarge;
+}
+
+h3 {
+  @include _h3Size;
+  @include _headingMarginLarge;
+}
+
+h4 {
+  font-size: $h4-size-mobile;
+  margin: 0px 0px 20px 0px;
+
+  @include _minWidthTablet {
+    margin: 0px 0px 25px 0px;
+    font-size: $h4-size;
+  }
+}
+
+h5 {
+  font-size: $h5-size-mobile;
+  margin: 0px 0px 5px 0px;
+
+  @include _minWidthTablet {
+    margin: 0px 0px 10px 0px;
+    font-size: $h5-size;
+  }
+}
+
+h6 {
+  font-size: $h6-size-mobile;
+  margin: 0px 0px 5px 0px;
+
+  @include _minWidthTablet {
+    margin: 0px 0px 10px 0px;
+    font-size: $h6-size;
+  }
+}
+
+select,
+input,
+label,
+legend {
+  color: $white;
+  margin: 0px;
+  padding: 0px;
+  font-size: $p-size-mobile;
+  line-height: 1.6rem;
+
+  @include _minWidthTablet {
+    font-size: $p-size;
+    line-height: 1.8rem;
+  }
+}
+
+p,
+span,
+select,
+input,
+ul,
+ol,
+label,
+button,
+div {
+  color: #fefefe;
+  font-size: 18px;
+  @include _bodyFont;
+}
+
+a {
+  @include _headingFont;
+}
+
+p,
+span,
+ul,
+li,
+ol {
+  color: $white;
+  margin: 0px;
+  padding: 0px;
+  font-size: $p-size-mobile;
+  line-height: 1.6rem;
+
+  @include _minWidthTablet {
+    font-size: $p-size;
+    line-height: 1.8rem;
+  }
+}
+
+a {
+  text-decoration: none;
+  font-size: $a-size-mobile;
+  line-height: 1.6rem;
+  color: $electricBlue;
+  margin: 0px;
+  padding: 0px;
+  display: inline-block;
+
+  @include _minWidthTablet {
+    font-size: $a-size;
+    line-height: 1.8rem;
+  }
+}
+
+button {
+  color: $white;
+  margin: 0px;
+  padding: 0px;
+  font-size: $p-size;
+  line-height: 2rem;
+}
+
+ul,
+ol,
+li {
+  margin: 0px;
+  padding: 0px;
+  letter-spacing: 0px;
+  list-style: none;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+}
+
+input {
+  width: 100%;
+  font-size: $p-size;
+  line-height: 2rem;
+  border: 1px solid $offBlack;
+  padding-left: 10px;
+
+  &::placeholder {
+    color: $mediumGrey;
+  }
+}
+
+//GLOBAL TEXT HIGHLIGHTING
+::-moz-selection {
+  background: $red;
+  color: $white;
+}
+
+::selection {
+  background: $red;
+  color: $white;
+}

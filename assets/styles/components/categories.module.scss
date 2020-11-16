@@ -1,0 +1,27 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+.categories {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.categories__tag {
+  span {
+    @include _fontSize(15px, 15px);
+    border: 1px solid $white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: $electricBlue;
+    margin-right: 15px;
+    transition: all 250ms ease-in-out;
+  }
+
+  &:hover {
+    span {
+      background: $white;
+      color: $black;
+    }
+  }
+}

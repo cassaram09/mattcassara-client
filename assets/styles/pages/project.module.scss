@@ -1,0 +1,74 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+.project {
+  h1 {
+    color: $white;
+    text-align: center;
+  }
+}
+
+.project__container {
+  @include _container;
+  @include _verticalPadding(50px, 50px);
+}
+
+.project__heading {
+  @include _minWidthMobile {
+    padding: 0px 100px;
+  }
+}
+
+.project__hero_image {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  margin: 80px 0px;
+
+  & > div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+    height: 400px;
+  }
+
+  @include _minWidthMobile {
+    padding: 0px 50px;
+  }
+}
+
+.project__content {
+  @include _minWidthMobile {
+    padding: 0px 100px;
+  }
+}
+
+.project__date {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.project__back_to_blog {
+  margin-top: 80px;
+}
+
+.project__categories {
+  margin-top: 50px;
+}
+
+.project__categories__tag {
+  @include _fontSize(15px, 15px);
+  border: 1px solid $white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: $electricBlue;
+  margin-right: 15px;
+  transition: all 250ms ease-in-out;
+
+  &:hover {
+    background: $white;
+    color: $black;
+  }
+}

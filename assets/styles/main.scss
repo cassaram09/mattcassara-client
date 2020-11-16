@@ -1,0 +1,22 @@
+@import "global/normalize";
+@import "global/variables";
+@import "global/fonts";
+@import "global/mixins";
+@import "global/global";
+// @import "vendor/*";
+// @import "pages/*";
+// @import "components/*";
+
+.page {
+  position: relative;
+  top: 60px;
+  transition: top 250ms ease-in-out;
+  min-height: calc(100vh - 110px);
+}
+
+@include _minWidthMobile {
+  .page {
+    min-height: calc(100vh - 130px);
+    top: 80px;
+  }
+}

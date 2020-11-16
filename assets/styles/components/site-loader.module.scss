@@ -1,0 +1,25 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+.site_loader {
+  position: fixed;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: $offBlack;
+}
+
+.site_loader__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  p {
+    @include _fontSize(80px, 90px);
+    color: $white;
+    @include _headingFont;
+  }
+}

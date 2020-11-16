@@ -1,0 +1,430 @@
+@import "./_variables.scss";
+
+/* === BREAKPOINTS ==== */
+@mixin _minWidthXXSmall {
+  @media (min-width: $xxsmall) {
+    @content;
+  }
+}
+
+@mixin _minWidthXSmall {
+  @media (min-width: $xsmall) {
+    @content;
+  }
+}
+
+@mixin _minWidthSmall {
+  @media (min-width: $small) {
+    @content;
+  }
+}
+
+@mixin _minWidthMobile {
+  @media (min-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin _minWidthTablet {
+  @media (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin _minWidthMedium {
+  @media (min-width: $medium) {
+    @content;
+  }
+}
+
+@mixin _minWidthLarge {
+  @media (min-width: $large) {
+    @content;
+  }
+}
+
+@mixin _minWidthXLarge {
+  @media (min-width: $xlarge) {
+    @content;
+  }
+}
+
+@mixin _minWidthXXLarge {
+  @media (min-width: $xxlarge) {
+    @content;
+  }
+}
+
+@mixin _maxWidth($max) {
+  @media (max-width: $max) {
+    @content;
+  }
+}
+
+@mixin _minWidth($min) {
+  @media (min-width: $min) {
+    @content;
+  }
+}
+
+@mixin _maxHeight($max) {
+  @media (max-height: $max) {
+    @content;
+  }
+}
+
+@mixin _betweenWidth($min, $max) {
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}
+
+@mixin _widerMedia {
+  @media (min-width: $siteMaxWidth) {
+    @content;
+  }
+}
+
+@mixin _widerThan($w) {
+  @media (min-width: #{$w}) {
+    @content;
+  }
+}
+
+@mixin _tallerThan($h) {
+  @media (min-height: #{$h}) {
+    @content;
+  }
+}
+
+/* === TYPOGRAPHY ==== */
+
+@mixin _bodyFont {
+  font-family: "ShareTechMono", Menlo;
+}
+
+@mixin _headingFont {
+  font-family: "Neoterique", "ShareTechMono", Menlo;
+}
+
+@mixin _bodyFontSize {
+  font-size: $span-size-mobile;
+
+  @include _minWidthTablet {
+    font-size: $span-size;
+  }
+}
+
+@mixin _h1Size {
+  font-size: $h1-size-mobile;
+  line-height: calc(#{$h1-size-mobile} + 10px);
+  @include _minWidthTablet {
+    font-size: $h1-size;
+  }
+}
+
+@mixin _h2Size {
+  font-size: $h2-size-mobile;
+  line-height: calc(#{$h2-size-mobile} + 10px);
+
+  @include _minWidthTablet {
+    font-size: $h2-size;
+  }
+}
+
+@mixin _h3Size {
+  font-size: $h3-size-mobile;
+  line-height: calc(#{$h3-size-mobile} + 8px);
+
+  @include _minWidthTablet {
+    font-size: $h3-size;
+  }
+}
+
+@mixin _headingMarginLarge {
+  margin: 0px 0px 20px 0px;
+
+  @include _minWidthTablet {
+    margin: 0px 0px 25px 0px;
+  }
+}
+
+/* === FONT SIXING ==== */
+@function calculateRem($size) {
+  $remSize: $size / $rootFontSize;
+  @return #{$remSize}rem;
+}
+
+@mixin _fontSize($size, $lineHeight) {
+  font-size: calculateRem($size);
+  line-height: calculateRem($lineHeight);
+}
+
+/* === OTHER MIXINS ==== */
+@function _toVW($unit) {
+  @return ($unit / 1600) * 100vw;
+}
+
+@mixin _hoverAnimation {
+  transition: opacity 250ms ease-in-out;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+@mixin _container {
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include _minWidthXSmall {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  @include _minWidthMobile {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  @include _minWidthLarge {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+
+  @content;
+}
+
+@mixin _verticalPadding($top: 0px, $bottom: 0px) {
+  padding-top: $top;
+  padding-bottom: $bottom;
+}
+
+@mixin _verticalMargin($top: 0px, $bottom: 0px) {
+  margin-top: $top;
+  margin-bottom: $bottom;
+}
+
+// Mixin for shadow button with block sliding up
+@mixin btn-border-slide($color, $hoverColor, $borderWidth, $time) {
+  $easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  position: relative;
+  padding: 0.5em 2em;
+
+  cursor: pointer;
+  overflow: hidden;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    height: $borderWidth;
+    width: 100%;
+    background-color: $color;
+  }
+
+  &:before {
+    top: 0;
+  }
+
+  &:after {
+    bottom: 0;
+  }
+
+  &:hover {
+    & > * {
+      & > * {
+        &:before,
+        &:after {
+          transform: translate3d(0, 0, 0);
+        }
+
+        & > * {
+          &:before,
+          &:after {
+            transform: translate3d(0, 0, 0);
+          }
+        }
+      }
+    }
+  }
+
+  & > * {
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: $borderWidth;
+      background-color: $color;
+    }
+
+    &:before {
+      left: 0;
+    }
+
+    &:after {
+      right: 0;
+    }
+
+    & > * {
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        z-index: 9;
+        height: $borderWidth;
+        width: 100%;
+        background-color: $hoverColor;
+      }
+
+      &:before {
+        top: 0;
+        transform: translate3d(-105%, 0, 0);
+        transition: transform $time $easing;
+      }
+
+      &:after {
+        bottom: 0;
+        transform: translate3d(105%, 0, 0);
+        transition: transform $time $easing;
+      }
+
+      & > * {
+        &:before,
+        &:after {
+          content: "";
+          position: absolute;
+          top: 0;
+          z-index: 9;
+          height: 100%;
+          width: $borderWidth;
+          background-color: $hoverColor;
+        }
+
+        &:before {
+          left: 0;
+          transform: translate3d(0, 105%, 0);
+          transition: transform $time $easing;
+        }
+
+        &:after {
+          right: 0;
+          transform: translate3d(0, -105%, 0);
+          transition: transform $time $easing;
+        }
+      }
+    }
+  }
+}
+
+@mixin _border($width: 1px, $padding: 20px, $color: $white) {
+  border-width: $width;
+  border-color: $color;
+  border-style: solid;
+  padding: $padding;
+}
+/* === CROSS BROWSER === */
+@mixin _IEOnly {
+  @media all and (-ms-high-contrast: none) {
+    @content;
+  }
+}
+
+@mixin _EdgeOnly {
+  @supports (-ms-ime-align: auto) {
+    @content;
+  }
+}
+
+/* === ACCESSIBILITY === */
+@mixin _accessible {
+  html[class*="accessible"] {
+    @content;
+  }
+}
+
+@mixin _notAccessible {
+  html:not([class*="accessible"]) {
+    @content;
+  }
+}
+@mixin animateBorder {
+  padding: 15px;
+  color: white;
+  position: relative;
+  vertical-align: middle;
+  transition: color 250ms;
+  box-shadow: inset 0 0 0 2px transparent;
+
+  &:before,
+  &:after {
+    border: 2px solid transparent;
+    width: 0;
+    height: 0;
+    box-sizing: inherit;
+    content: "";
+    position: absolute;
+  }
+
+  &:before {
+    top: 0;
+    left: 0;
+  }
+
+  &:after {
+    bottom: 0;
+    right: 0;
+  }
+
+  &.animate {
+    &:before {
+      width: 100%;
+      height: 100%;
+      border-top-color: $white;
+      border-right-color: $white;
+      transition: width 300ms ease-in, height 150ms linear 300ms;
+    }
+
+    &:after {
+      width: 100%;
+      height: 100%;
+      border-bottom-color: $white;
+      border-left-color: $white;
+      transition: border-color 0s linear 450ms, width 150ms linear 450ms,
+        height 300ms ease-out 600ms;
+    }
+  }
+}
+
+@keyframes textShadow {
+  0% {
+    text-shadow: 0px 0px 0px #4471c9, 0px 0px 0px #8e0e0e, 0px 0px 0px #7f7f7f,
+      0px 0px 0px #252525;
+  }
+
+  25% {
+    text-shadow: 3px 3px 0px #4471c9, 0px 0px 0px #8e0e0e, 0px 0px 0px #7f7f7f,
+      0px 0px 0px #252525;
+  }
+
+  50% {
+    text-shadow: 3px 3px 0px #4471c9, 6px 6px 0px #8e0e0e, 0px 0px 0px #7f7f7f,
+      0px 0px 0px #252525;
+  }
+
+  75% {
+    text-shadow: 3px 3px 0px #4471c9, 6px 6px 0px #8e0e0e, 9px 9px 0px #7f7f7f,
+      0px 0px 0px #252525;
+  }
+
+  100% {
+  }
+}

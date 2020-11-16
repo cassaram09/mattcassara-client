@@ -1,0 +1,83 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+.blog {
+  h1 {
+    color: $white;
+  }
+}
+
+.blog__container {
+  @include _container;
+  @include _verticalPadding(50px, 50px);
+}
+
+.blog__inner {
+  @include _verticalPadding(30px, 0px);
+  display: flex;
+}
+
+.blog__sidebar {
+  flex: 0 0 270px;
+  margin-left: 50px;
+}
+
+.blog__articles {
+  flex: 1;
+}
+.blog__article__list {
+}
+
+.blog__article__list__item {
+  flex: 1 1 100%;
+
+  @include _verticalMargin(0px, 80px);
+  // @include _border(1px, 15px);
+  @include _hoverAnimation;
+
+  @include _minWidthSmall {
+    flex: 0 0 48%;
+    margin-right: 4%;
+    &:nth-child(2n) {
+      margin-right: 0%;
+    }
+  }
+
+  @include _minWidthMobile {
+    flex: 0 0 31.3%;
+    margin-right: 3%;
+
+    &:nth-child(2n) {
+      margin-right: 3%;
+    }
+
+    &:nth-child(3n) {
+      margin-right: 0%;
+    }
+  }
+}
+
+.blog__article__list__item__logo {
+  height: 60vw;
+  width: 100%;
+  overflow: hidden;
+
+  & > div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+  }
+  @include _minWidthSmall {
+    height: 30vw;
+  }
+
+  @include _minWidthMobile {
+    height: 15vw;
+  }
+}
+
+.blog__article__list__item__content {
+  margin-top: 20px;
+}

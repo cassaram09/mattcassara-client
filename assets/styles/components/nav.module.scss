@@ -1,0 +1,79 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+._ {
+  background: $offBlack;
+  z-index: 1;
+  flex: 1;
+}
+
+.desktop_nav {
+  display: none;
+  @include _minWidthMobile {
+    display: block;
+  }
+
+  &.scrolled {
+    .list__item {
+      a {
+        @include _fontSize(20px, 24px);
+      }
+    }
+  }
+}
+
+.mobile_nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  @include _minWidthMobile {
+    display: none;
+  }
+
+  button[class*="hamburger"] {
+    height: 26px;
+    z-index: 11;
+  }
+}
+
+.mobile_nav__pane {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: $offBlack;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.list {
+  display: block;
+  text-align: center;
+
+  @include _minWidthMobile {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.list__item {
+  margin-bottom: 25px;
+  a {
+    transition: font-size 250ms ease-in-out;
+    color: white;
+    @include _fontSize(24px, 28px);
+  }
+
+  @include _minWidthMobile {
+    margin-bottom: 0px;
+
+    &:not(:last-child) {
+      margin-right: 25px;
+    }
+
+    @include _bodyFontSize();
+  }
+}
