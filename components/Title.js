@@ -6,15 +6,13 @@ const cl = _classes(styles);
 
 Title.propTypes = {
   title: PropTypes.string,
-  color: PropTypes.string,
 };
 
 Title.defaultProps = {
   title: "",
-  color: "",
 };
 
-export default function Title({ title, color }) {
+export default function Title({ title }) {
   const variants = {
     hidden: { opacity: 0, y: -50 },
     visible: { opacity: 1, y: 0, transition: { delay: 0.5 } },
@@ -27,7 +25,7 @@ export default function Title({ title, color }) {
       initial={"hidden"}
       animate={"visible"}
     >
-      <h1 className={cl([color])}>{title}</h1>
+      <h1>{title}</h1>
     </motion.div>
   );
 }

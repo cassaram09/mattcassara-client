@@ -1,9 +1,13 @@
 import styles from "../assets/styles/pages/home.module.scss";
-import HeroImage from "../components/HeroImage";
-import axios from "axios";
 import { _classes } from "../utils/helpers";
+import HeroImage from "../components/HeroImage";
+import API from "../utils/API";
 
 const cl = _classes(styles);
+
+Home.propTypes = {
+  page: PropTypes.object,
+};
 
 export default function Home({ page }) {
   return (
@@ -18,14 +22,24 @@ export default function Home({ page }) {
   );
 }
 
-// This gets called on every request
-export async function getStaticProps() {
-  // Fetch data from external API
-  try {
-    const res = await axios.get(`${process.env.API_URL}/home`);
-    return { props: { page: res.data } };
-  } catch (e) {
-    console.log(e);
-    return { props: { page: null } };
-  }
-}
+export const getServerSideProps = async () => {
+  const data = await new API().graphql({
+    query: `
+      query GetHome{
+        home {
+          title
+          subtitle
+          hero_image {
+            url
+          }
+        }
+      }
+      `,
+  });
+
+  return {
+    props: {
+      page: data.home,
+    },
+  };
+};

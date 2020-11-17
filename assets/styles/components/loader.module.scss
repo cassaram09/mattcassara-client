@@ -1,0 +1,32 @@
+._ {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: 1;
+  transition: all 250ms ease-in-out;
+  pointer-events: none;
+
+  &.active {
+    background: white;
+    .inner {
+      opacity: 1;
+    }
+  }
+}
+
+.inner {
+  transition: all 250ms ease-in-out;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  svg {
+    height: 170px;
+    width: 170px;
+  }
+}

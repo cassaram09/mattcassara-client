@@ -1,30 +1,22 @@
 import styles from "../assets/styles/components/header.module.scss";
 import { _classes } from "../utils/helpers";
+import * as SVG from "./SVG";
+import Link from "next/link";
 import Nav from "./Nav";
 import { useState, useEffect } from "react";
 import zenscroll from "zenscroll";
-import useAuth from "../components/AuthProvider";
-import Link from "./Link";
+
 const cl = _classes(styles);
 
-Header.propTypes = {};
+Header.propTypes = {
+  nav: PropTypes.object,
+};
 
-Header.defaultProps = {};
+Header.defaultProps = {
+  nav: {},
+};
 
-const NAV = [
-  { title: "Sign Up", path: "/signup" },
-  { title: "Login", path: "/login" },
-  { title: "Post a Review", path: "/post-review" },
-];
-
-const AUTH_NAV = [
-  { title: "Account", path: "/account" },
-  { title: "Post a Review", path: "/post-review" },
-];
-
-export default function Header() {
-  const auth = useAuth();
-
+export default function Header({ nav }) {
   const [scrolled, setScroll] = useState(false);
 
   const offsetY = () => setScroll(zenscroll.getY() > 70);
@@ -35,14 +27,11 @@ export default function Header() {
     <header className={cl(["_", scrolled && "scrolled"])}>
       <div className={cl("container")}>
         <div className={cl("logo")}>
-          <Link path={"/"}>
-            <a>LandlordGrades</a>
+          <Link href={{ pathname: `/` }}>
+            <a>{SVG.logo}</a>
           </Link>
         </div>
-        <Nav
-          items={auth.isAuthenticated ? AUTH_NAV : NAV}
-          scrolled={scrolled}
-        />
+        <Nav items={nav.menu_items} scrolled={scrolled} />
       </div>
     </header>
   );

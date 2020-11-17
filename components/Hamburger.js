@@ -15,7 +15,7 @@ Hamburger.defaultProps = {
   open: false,
   onClick: () => null,
   className: "",
-  color: "black",
+  color: "white",
   type: "",
 };
 

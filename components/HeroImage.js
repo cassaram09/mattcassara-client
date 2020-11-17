@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import { _classes } from "../utils/helpers";
 import { Parallax } from "react-parallax";
 import Title from "./Title";
-import CTA from "./CTA";
-
 const cl = _classes(styles);
 
 HeroImage.propTypes = {
@@ -14,8 +12,6 @@ HeroImage.propTypes = {
   height: PropTypes.string,
   subtitle: PropTypes.string,
   parallax: PropTypes.bool,
-  cta: PropTypes.object,
-  children: PropTypes.node,
 };
 
 HeroImage.defaultProps = {
@@ -30,25 +26,14 @@ export default function HeroImage({
   height,
   subtitle,
   parallax,
-  cta,
-  children,
 }) {
   if (parallax) {
     return (
       <div className={cl(["_", height])}>
         <Parallax blur={0} bgImage={src} bgImageAlt={alt} strength={400}>
           <div className={cl("content")}>
-            {title && <Title title={title} color="white" />}
+            {title && <Title title={title} />}
             {subtitle && <h2 className={cl("subtitle")}>{subtitle}</h2>}
-            {cta && (
-              <CTA
-                text={cta.text}
-                link={cta.link}
-                onClick={cta.onClick}
-                type="orange"
-              />
-            )}
-            {children}
           </div>
 
           <div className={cl(["parallax", height])} />
@@ -56,7 +41,6 @@ export default function HeroImage({
       </div>
     );
   }
-
   return (
     <div className={cl(["_", height])}>
       <div
@@ -66,17 +50,8 @@ export default function HeroImage({
         className={cl("background")}
       />
       <div className={cl("content")}>
-        {title && <Title title={title} color="white" />}
+        {title && <Title title={title} />}
         {subtitle && <h2 className={cl("subtitle")}>{subtitle}</h2>}
-        {cta && (
-          <CTA
-            text={cta.text}
-            link={cta.link}
-            onClick={cta.onClick}
-            type="orange"
-          />
-        )}
-        {children}
       </div>
     </div>
   );

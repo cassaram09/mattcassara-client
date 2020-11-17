@@ -1,5 +1,4 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import GoogleAnalytics from "../components/GoogleAnalytics";
 
 export default class _Document extends Document {
   render() {
@@ -7,8 +6,7 @@ export default class _Document extends Document {
       <Html lang={"en"}>
         <Head>
           <meta charSet="utf-8" />
-          <link rel="canonical" href="https://landlordgrades.com/" />
-          <GoogleAnalytics />
+          <link rel="canonical" href="https://www.mattcassara.com/" />
         </Head>
         <body>
           <Main />
