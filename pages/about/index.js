@@ -1,10 +1,8 @@
 import styles from "../../assets/styles/pages/about.module.scss";
 import HeroImage from "../../components/HeroImage";
-import axios from "axios";
+import API from "../../utils/api";
 import { _classes } from "../../utils/helpers";
 import * as SVG from "../../components/SVG";
-import { motion, useAnimation } from "framer-motion";
-import ScrollContainer from "../../components/ScrollContainer";
 import Reveal from "../../components/Reveal";
 
 const cl = _classes(styles);
@@ -37,39 +35,14 @@ export default function About({ page, skills, experiences }) {
     );
   };
 
-  const renderBio = () => {
-    // const bio = {
-    //   visible: {
-    //     opacity: 1,
-    //     transition: {
-    //       duration: 0.5,
-    //       delay: 0.5,
-    //     },
-    //   },
-    //   hidden: {
-    //     opacity: 0,
-    //   },
-    // };
-
-    return (
-      <Reveal preset={"fade"} delay={500} className={cl("bio")}>
-        <div className={cl("bio__avatar")}>{renderAvatar()}</div>
-        <div className={cl("bio__excerpt")}>
-          <div dangerouslySetInnerHTML={{ __html: page.bio }} />
-        </div>
-      </Reveal>
-    );
-    // return (
-    //   <motion.section
-    //     className={cl("bio")}
-    //     variants={bio}
-    //     initial={"hidden"}
-    //     animate={"visible"}
-    //   >
-
-    //   </motion.section>
-    // );
-  };
+  const renderBio = () => (
+    <Reveal preset={"fade"} delay={500} className={cl("bio")}>
+      <div className={cl("bio__avatar")}>{renderAvatar()}</div>
+      <div className={cl("bio__excerpt")}>
+        <div dangerouslySetInnerHTML={{ __html: page.bio }} />
+      </div>
+    </Reveal>
+  );
 
   const renderExperience = () => {
     const list = {
@@ -89,52 +62,38 @@ export default function About({ page, skills, experiences }) {
       },
     };
 
-    const controls = useAnimation();
-
     return (
-      <ScrollContainer
-        className={cl("experience")}
-        onEnter={() => controls.start("visible")}
-      >
+      <div className={cl("experience")}>
         <h2>Experience</h2>
 
-        <motion.ul
+        <Reveal
           variants={list}
-          initial={"hidden"}
-          animate={controls}
           className={cl("experience__list")}
+          element={"ul"}
         >
           {experiences.map((experience) => {
-            const src = experience.logo.url;
-            const alt = experience.logo.alt || src;
-
-            const item = {
-              hidden: { opacity: 0, y: -50 },
-              visible: { opacity: 1, y: 0 },
-            };
-
-            const logo = {
-              hidden: { opacity: 0, x: -100 },
-              visible: { opacity: 1, x: 0 },
-            };
+            const src = experience.logo && experience.logo.url;
+            const alt = (experience.logo && experience.logo.alt) || src;
 
             return (
-              <motion.li
-                variants={item}
+              <Reveal
+                element={"li"}
+                preset={"fadeUp"}
                 key={experience.id}
                 className={cl("experience__list__item")}
               >
                 <div className={cl("experience__list__item__left")}>
-                  <motion.div
-                    variants={logo}
+                  <Reveal
+                    preset={"fadeLeft"}
                     className={cl("experience__list__item__logo")}
+                    delay={500}
                   >
                     <div
                       style={{ backgroundImage: `url('${src}')` }}
                       role="img"
                       aria-label={alt}
                     />
-                  </motion.div>
+                  </Reveal>
                 </div>
                 <div className={cl("experience__list__item__right")}>
                   <h3>{experience.title}</h3>
@@ -144,17 +103,15 @@ export default function About({ page, skills, experiences }) {
                     dangerouslySetInnerHTML={{ __html: experience.content }}
                   />
                 </div>
-              </motion.li>
+              </Reveal>
             );
           })}
-        </motion.ul>
-      </ScrollContainer>
+        </Reveal>
+      </div>
     );
   };
 
   const renderSkills = () => {
-    const controls = useAnimation();
-
     const list = {
       visible: {
         opacity: 1,
@@ -173,17 +130,9 @@ export default function About({ page, skills, experiences }) {
     };
 
     return (
-      <ScrollContainer
-        className={cl("skills")}
-        onEnter={() => controls.start("visible")}
-      >
+      <div className={cl("skills")}>
         <h2>Skills</h2>
-        <motion.ul
-          className={cl("skills__list")}
-          variants={list}
-          initial={"hidden"}
-          animate={controls}
-        >
+        <Reveal className={cl("skills__list")} element={"ul"} variants={list}>
           {skills.map((skill) => {
             const item = {
               hidden: { opacity: 0, y: 50 },
@@ -191,7 +140,8 @@ export default function About({ page, skills, experiences }) {
             };
 
             return (
-              <motion.li
+              <Reveal
+                element={"li"}
                 className={cl("skills__list__item")}
                 key={skill.id}
                 variants={item}
@@ -200,11 +150,11 @@ export default function About({ page, skills, experiences }) {
                   {SVG[skill.icon]}
                 </div>
                 <p className={cl("skills__list__item__title")}>{skill.title}</p>
-              </motion.li>
+              </Reveal>
             );
           })}
-        </motion.ul>
-      </ScrollContainer>
+        </Reveal>
+      </div>
     );
   };
 
@@ -227,16 +177,47 @@ export default function About({ page, skills, experiences }) {
   );
 }
 
-export async function getStaticProps() {
-  try {
-    const res = await axios.get(`${process.env.API_URL}/about`);
-    const { page, skills, experiences } = res.data;
+export const getStaticProps = async () => {
+  const { about, experiences, skills } = await new API().graphql({
+    query: `
+      query GetAbout{
+        about {
+          title
+          bio
+          hero_image {
+            url
+          }
+          avatar {
+            url
+          }
+        }
+        experiences {
+          id
+          title
+          slug
+          role
+          location
+          start_date
+          end_date
+          content
+          logo {
+            url
+          }
+        }
+        skills {
+          id
+          title
+          icon
+        }
+      }
+      `,
+  });
 
-    return {
-      props: { page, skills, experiences },
-    };
-  } catch (e) {
-    console.log(e);
-    return { props: { page: null } };
-  }
-}
+  return {
+    props: {
+      page: about,
+      experiences,
+      skills,
+    },
+  };
+};

@@ -4,6 +4,8 @@ import { useEffect } from "react";
 
 const motion = {
   div: createDomMotionComponent("div"),
+  ul: createDomMotionComponent("ul"),
+  li: createDomMotionComponent("li"),
   svg: createDomMotionComponent("svg"),
 };
 
@@ -18,6 +20,7 @@ Reveal.propTypes = {
   children: PropTypes.node.isRequired,
   delay: PropTypes.number,
   duration: PropTypes.number,
+  element: PropTypes.string,
 };
 
 Reveal.defaultProps = {
@@ -28,6 +31,7 @@ Reveal.defaultProps = {
   className: "",
   delay: 0,
   duration: 500,
+  element: "div",
 };
 
 const PRESETS = {
@@ -43,6 +47,14 @@ const PRESETS = {
     hidden: { opacity: 0, y: "-50%" },
     visible: { opacity: 1, y: "0%" },
   },
+  fadeLeft: {
+    hidden: { opacity: 0, x: -100 },
+    visible: { opacity: 1, x: 0 },
+  },
+  fadeRight: {
+    hidden: { opacity: 0, x: 100 },
+    visible: { opacity: 1, x: 0 },
+  },
   down: {
     hidden: { y: "-100%" },
     visible: { y: "0%" },
@@ -53,6 +65,13 @@ const PRESETS = {
   },
 };
 
+const item = {
+  hidden: { opacity: 0, y: -50 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const logo = {};
+
 export default function Reveal({
   variants,
   reveal,
@@ -61,6 +80,7 @@ export default function Reveal({
   children,
   delay,
   duration,
+  element,
 }) {
   const controls = useAnimation();
 
@@ -91,8 +111,10 @@ export default function Reveal({
     }
   }, []);
 
+  const Component = motion[element];
+
   return (
-    <motion.div
+    <Component
       className={className}
       initial="hidden"
       animate={controls}
@@ -101,6 +123,6 @@ export default function Reveal({
     >
       <Waypoint onEnter={onEnter} fireOnRapidScroll={false} />
       {children}
-    </motion.div>
+    </Component>
   );
 }
