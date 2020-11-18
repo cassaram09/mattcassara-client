@@ -1,9 +1,10 @@
 import styles from "../../assets/styles/pages/projects.module.scss";
-import axios from "axios";
+import API from "../../utils/api";
 import { _class } from "../../utils/helpers";
 import { motion } from "framer-motion";
 import Link from "../../components/Link";
 import Title from "../../components/Title";
+
 const cl = _class(styles, "projects");
 
 Projects.propTypes = {
@@ -44,8 +45,8 @@ export default function Projects({ page, projects }) {
           className={cl("project__list")}
         >
           {projects.map((project) => {
-            const src = project.logo.url;
-            const alt = project.logo.alt || src;
+            const src = project.logo && project.logo.url;
+            const alt = (project.logo && project.logo.alt) || src;
             const item = {
               hidden: { opacity: 0, y: -50 },
               visible: { opacity: 1, y: 0 },
@@ -89,16 +90,36 @@ export default function Projects({ page, projects }) {
   );
 }
 
-export async function getStaticProps() {
-  try {
-    const res = await axios.get(`${process.env.API_URL}/projects-page`);
-    const { page, projects } = res.data;
+export const getStaticProps = async () => {
+  const { projectpage, projects } = await new API().graphql({
+    query: `
+      query GetProjectsPage {
+        projectpage {
+          id
+          title
+          hero_image {
+            url
+          }
+        }
+        projects {
+          id
+          title
+          content
+          excerpt
+          logo {
+            url
+          }
+          company
+          slug
+        }
+      }
+      `,
+  });
 
-    return {
-      props: { page, projects },
-    };
-  } catch (e) {
-    console.log(e);
-    return { props: {} };
-  }
-}
+  return {
+    props: {
+      page: projectpage,
+      projects,
+    },
+  };
+};

@@ -1,5 +1,5 @@
 import styles from "../../assets/styles/pages/blog.module.scss";
-import axios from "axios";
+import API from "../../utils/api";
 import { _class } from "../../utils/helpers";
 import Link from "../../components/Link";
 import moment from "moment";
@@ -97,16 +97,39 @@ export default function Blog({ page, articles, categories }) {
   );
 }
 
-export async function getStaticProps() {
-  try {
-    const res = await axios.get(`${process.env.API_URL}/blog-page`);
-    const { page, articles, categories } = res.data;
+export const getStaticProps = async () => {
+  const { blog, articles, categories } = await new API().graphql({
+    query: `
+      query GetBlog{
+        blog {
+          id
+          title
+          hero_image {
+            url
+          }
+        }
+        articles {
+          id
+          title
+          content
+          publish_date
+          image {
+            url
+          }
+        }
+        categories {
+          id
+          title
+        }
+      }
+      `,
+  });
 
-    return {
-      props: { page, articles, categories },
-    };
-  } catch (e) {
-    console.log(e);
-    return { props: {} };
-  }
-}
+  return {
+    props: {
+      page: blog,
+      articles,
+      categories,
+    },
+  };
+};
