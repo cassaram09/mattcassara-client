@@ -1,31 +1,22 @@
 import styles from "../assets/styles/components/title.module.scss";
 import { _classes } from "../utils/helpers";
-import { motion } from "framer-motion";
+import Reveal from "./Reveal";
 
 const cl = _classes(styles);
 
 Title.propTypes = {
   title: PropTypes.string,
+  subtitle: PropTypes.boolean,
 };
 
 Title.defaultProps = {
   title: "",
 };
 
-export default function Title({ title }) {
-  const variants = {
-    hidden: { opacity: 0, y: -50 },
-    visible: { opacity: 1, y: 0, transition: { delay: 0.5 } },
-  };
-
+export default function Title({ title, subtitle }) {
   return (
-    <motion.div
-      className={cl("_")}
-      variants={variants}
-      initial={"hidden"}
-      animate={"visible"}
-    >
-      <h1>{title}</h1>
-    </motion.div>
+    <Reveal preset={"fadeUp"} delay={500} className={cl("_")}>
+      {subtitle ? <h2>{title}</h2> : <h1>{title}</h1>}
+    </Reveal>
   );
 }
