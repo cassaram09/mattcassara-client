@@ -22,8 +22,9 @@ export default function Nav({ items, scrolled }) {
   const controls = useAnimation();
 
   useEffect(() => {
+    const body = document.querySelector("body");
     controls.start(open ? "visible" : "hidden");
-    open ? disableBodyScroll() : enableBodyScroll();
+    open ? disableBodyScroll(body) : enableBodyScroll(body);
   });
 
   const desktopNav = () => (
