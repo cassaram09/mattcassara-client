@@ -3,8 +3,8 @@ import API from "../../utils/api";
 import { _class } from "../../utils/helpers";
 import Link from "../../components/Link";
 import moment from "moment";
-import { motion } from "framer-motion";
 import Title from "../../components/Title";
+import Reveal from "../../components/Reveal";
 
 const cl = _class(styles, "blog");
 
@@ -22,9 +22,26 @@ Blog.defaultProps = {
 
 export default function Blog({ page, articles, categories }) {
   const renderArticles = () => {
+    const list = {
+      visible: {
+        opacity: 1,
+        transition: {
+          when: "beforeChildren",
+          staggerChildren: 0.2,
+          delay: 0.25,
+        },
+      },
+      hidden: {
+        opacity: 0,
+        transition: {
+          when: "afterChildren",
+        },
+      },
+    };
+
     return (
       <section className={cl("articles")}>
-        <ul className={cl("article__list")}>
+        <Reveal element="ul" className={cl("article__list")} variants={list}>
           {articles.map((article) => {
             const src =
               "https://www.mattcassara.com/wp-content/uploads/2018/05/app-applications-apps-147413-1024x683.jpg";
@@ -36,12 +53,12 @@ export default function Blog({ page, articles, categories }) {
             };
 
             return (
-              <motion.li
+              <Reveal
                 className={`${cl("article__list__item")} ${styles.draw}`}
                 key={article.id}
+                element="li"
                 variants={item}
-                initial={"hidden"}
-                animate={"visible"}
+                delay={500}
               >
                 <Link path={`/blog/[slug]`} as={`/blog/${article.slug}`}>
                   <p>{moment(article.published_at).format("LL")}</p>
@@ -61,10 +78,10 @@ export default function Blog({ page, articles, categories }) {
                     />
                   </div>
                 </Link>
-              </motion.li>
+              </Reveal>
             );
           })}
-        </ul>
+        </Reveal>
       </section>
     );
   };
@@ -72,14 +89,14 @@ export default function Blog({ page, articles, categories }) {
   const renderSidebar = () => {
     return (
       <section className={cl("sidebar")}>
-        <div>
+        <Reveal preset={"fadeRight"} delay={500}>
           <h3>Categories</h3>
           <ul>
             {categories.map((cat) => (
               <li key={cat.id}>{cat.title}</li>
             ))}
           </ul>
-        </div>
+        </Reveal>
       </section>
     );
   };
@@ -87,7 +104,7 @@ export default function Blog({ page, articles, categories }) {
   return (
     <main className={cl("")}>
       <div className={cl("container")}>
-        <Title title={page.title} />{" "}
+        <Title title={page.title} />
         <div className={cl("inner")}>
           {renderArticles()}
           {renderSidebar()}
