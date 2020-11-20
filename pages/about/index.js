@@ -4,6 +4,8 @@ import API from "../../utils/api";
 import { _classes } from "../../utils/helpers";
 import * as SVG from "../../components/SVG";
 import Reveal from "../../components/Reveal";
+import Title from "../../components/Title";
+import { motion } from "framer-motion";
 
 const cl = _classes(styles);
 
@@ -64,7 +66,7 @@ export default function About({ page, skills, experiences }) {
 
     return (
       <div className={cl("experience")}>
-        <h2>Experience</h2>
+        <Title title={"Experience"} tag={"h2"} />
 
         <Reveal
           variants={list}
@@ -131,7 +133,8 @@ export default function About({ page, skills, experiences }) {
 
     return (
       <div className={cl("skills")}>
-        <h2>Skills</h2>
+        <Title title={"Skills"} tag={"h2"} />
+
         <Reveal className={cl("skills__list")} element={"ul"} variants={list}>
           {skills.map((skill) => {
             const item = {
@@ -140,8 +143,7 @@ export default function About({ page, skills, experiences }) {
             };
 
             return (
-              <Reveal
-                element={"li"}
+              <motion.li
                 className={cl("skills__list__item")}
                 key={skill.id}
                 variants={item}
@@ -150,7 +152,7 @@ export default function About({ page, skills, experiences }) {
                   {SVG[skill.icon]}
                 </div>
                 <p className={cl("skills__list__item__title")}>{skill.title}</p>
-              </Reveal>
+              </motion.li>
             );
           })}
         </Reveal>

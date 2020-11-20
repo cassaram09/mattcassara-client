@@ -104,7 +104,7 @@
 }
 
 @mixin _headingFont {
-  font-family: "Neoterique", "ShareTechMono", Menlo;
+  font-family: "BebasNeue", Menlo;
 }
 
 @mixin _bodyFontSize {
@@ -117,7 +117,7 @@
 
 @mixin _h1Size {
   font-size: $h1-size-mobile;
-  line-height: calc(#{$h1-size-mobile} + 10px);
+  line-height: calc(#{$h1-size-mobile} + 25px);
   @include _minWidthTablet {
     font-size: $h1-size;
   }

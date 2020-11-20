@@ -31,7 +31,7 @@ export default function HeroImage({
   const content = (
     <div className={cl("content")}>
       {title && <Title title={title} />}
-      {subtitle && <Title title={subtitle} subtitle />}
+      {subtitle && <Title title={subtitle} tag={"h2"} />}
     </div>
   );
 
