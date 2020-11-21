@@ -6,6 +6,7 @@ import * as SVG from "../../components/SVG";
 import Reveal from "../../components/Reveal";
 import Title from "../../components/Title";
 import { motion } from "framer-motion";
+import moment from "moment";
 
 const cl = _classes(styles);
 
@@ -64,6 +65,10 @@ export default function About({ page, skills, experiences }) {
       },
     };
 
+    const sortedExperiences = experiences.sort((a, b) => {
+      return moment(b.start_date).toDate() - moment(a.start_date).toDate();
+    });
+
     return (
       <div className={cl("experience")}>
         <Title title={"Experience"} tag={"h2"} />
@@ -73,7 +78,7 @@ export default function About({ page, skills, experiences }) {
           className={cl("experience__list")}
           element={"ul"}
         >
-          {experiences.map((experience) => {
+          {sortedExperiences.map((experience) => {
             const src = experience.logo && experience.logo.url;
             const alt = (experience.logo && experience.logo.alt) || src;
 
@@ -98,6 +103,10 @@ export default function About({ page, skills, experiences }) {
                   </Reveal>
                 </div>
                 <div className={cl("experience__list__item__right")}>
+                  <p>
+                    {experience.start_date} -
+                    {experience.end_date ? experience.end_date : " Present"}
+                  </p>
                   <h3>{experience.title}</h3>
                   <h4>{experience.role}</h4>
 
@@ -134,6 +143,10 @@ export default function About({ page, skills, experiences }) {
     return (
       <div className={cl("skills")}>
         <Title title={"Skills"} tag={"h2"} />
+
+        <Reveal preset={"fadeUp"}>
+          <p>Including, but not limited to...</p>
+        </Reveal>
 
         <Reveal className={cl("skills__list")} element={"ul"} variants={list}>
           {skills.map((skill) => {

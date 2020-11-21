@@ -1,11 +1,11 @@
 import styles from "../../assets/styles/pages/projects.module.scss";
 import API from "../../utils/api";
-import { _class } from "../../utils/helpers";
+import { _classes } from "../../utils/helpers";
 import { motion } from "framer-motion";
 import Link from "../../components/Link";
 import Title from "../../components/Title";
 
-const cl = _class(styles, "projects");
+const cl = _classes(styles);
 
 Projects.propTypes = {
   page: PropTypes.object,

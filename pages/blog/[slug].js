@@ -1,5 +1,5 @@
 import styles from "../../assets/styles/pages/article.module.scss";
-import axios from "axios";
+import API from "../../utils/api";
 import { _class } from "../../utils/helpers";
 import moment from "moment";
 import Title from "../../components/Title";
@@ -10,14 +10,14 @@ import BackToBlog from "../../components/BackToBlog";
 const cl = _class(styles, "article");
 
 Article.propTypes = {
-  article: PropTypes.object,
+  page: PropTypes.object,
 };
 
 Article.defaultProps = {
-  article: {},
+  page: {},
 };
 
-export default function Article({ article }) {
+export default function Article({ page }) {
   const renderImage = () => {
     const variants = {
       hidden: { opacity: 0, y: 50 },
@@ -33,7 +33,7 @@ export default function Article({ article }) {
       >
         <div
           style={{
-            backgroundImage: `url(https://www.mattcassara.com/wp-content/uploads/2018/05/app-applications-apps-147413.jpg)`,
+            backgroundImage: page.image.url,
           }}
           role="img"
           aria-label={"alt"}
@@ -54,7 +54,7 @@ export default function Article({ article }) {
         initial={"hidden"}
         animate={"visible"}
       >
-        <div dangerouslySetInnerHTML={{ __html: article.content }} />
+        <div dangerouslySetInnerHTML={{ __html: page.content }} />
       </motion.div>
     );
   };
@@ -63,10 +63,8 @@ export default function Article({ article }) {
     <main className={cl("")}>
       <div className={cl("container")}>
         <div className={cl("heading")}>
-          <Title title={article.title} />
-          <p className={cl("date")}>
-            {moment(article.published_at).format("LL")}
-          </p>
+          <Title title={page.title} />
+          <p className={cl("date")}>{moment(page.publish_date).format("LL")}</p>
         </div>
 
         {renderImage()}
@@ -74,7 +72,7 @@ export default function Article({ article }) {
         {renderContent()}
 
         <div className={cl("content")}>
-          <Categories categories={article.categories} />
+          <Categories categories={page.categories} />
           <BackToBlog />
         </div>
       </div>
@@ -82,27 +80,29 @@ export default function Article({ article }) {
   );
 }
 
-export async function getStaticPaths() {
-  const res = await axios.get(`${process.env.API_URL}/articles/`);
+export const getServerSideProps = async (ctx) => {
+  const { articleBySlug } = await new API().graphql({
+    query: `
+      query GetArticle {
+        articleBySlug(slug: "${ctx.params.slug}") {
+          id
+          title
+          content
+          categories {
+            title
+          }
+          publish_date
+          image {
+            url
+          }
+        }
+      }
+      `,
+  });
+
   return {
-    paths: res.data.map((article) => ({
-      params: { slug: article.slug },
-    })),
-    fallback: false,
+    props: {
+      page: articleBySlug,
+    },
   };
-}
-
-export async function getStaticProps(ctx) {
-  try {
-    const res = await axios.get(
-      `${process.env.API_URL}/articles/${ctx.params.slug}`
-    );
-
-    return {
-      props: { article: res.data },
-    };
-  } catch (e) {
-    console.log(e);
-    return { props: {} };
-  }
-}
+};

@@ -130,6 +130,7 @@ export const getStaticProps = async () => {
           title
           content
           publish_date
+          slug
           image {
             url
           }
