@@ -149,6 +149,17 @@
   }
 }
 
+@mixin _styledList {
+  ul {
+    padding-left: 20px;
+    margin: 20px 0px;
+
+    li {
+      list-style: disc;
+    }
+  }
+}
+
 /* === FONT SIXING ==== */
 @function calculateRem($size) {
   $remSize: $size / $rootFontSize;

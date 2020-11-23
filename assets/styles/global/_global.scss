@@ -146,6 +146,10 @@ ol {
   }
 }
 
+p {
+  min-height: 25px;
+}
+
 a {
   text-decoration: none;
   font-size: $a-size-mobile;

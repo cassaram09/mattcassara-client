@@ -27,7 +27,7 @@
 }
 
 .copyright {
-  p {
+  span {
     color: white;
     @include _fontSize(14px, 16px);
   }

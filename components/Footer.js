@@ -10,7 +10,7 @@ class Footer extends React.Component {
       <footer className={cl("_")}>
         <div className={cl("container")}>
           <div className={cl("copyright")}>
-            <p>© 2020 Matt Cassara. All rights reserved</p>
+            <span>© 2020 Matt Cassara. All rights reserved</span>
           </div>
           <ul className={cl("social")}>
             <li className={cl("social__item")}>{SVG.github}</li>
