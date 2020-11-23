@@ -26,6 +26,10 @@
 .project__list__item {
   flex: 1 1 100%;
 
+  a {
+    width: 100%;
+  }
+
   @include _verticalMargin(0px, 80px);
   @include _border(1px, 15px);
 
@@ -63,7 +67,6 @@
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
-    background-color: white;
   }
   @include _minWidthSmall {
     height: 30vw;
