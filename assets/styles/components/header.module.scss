@@ -2,13 +2,13 @@
 @import "../global/_mixins.scss";
 
 @mixin _scrolledHeights {
-  .header__top {
+  .top {
     height: 85px;
   }
 
-  .header__logo {
-    svg {
-      height: 50px;
+  .logo {
+    p {
+      @include _fontSize(30px, 30px);
     }
   }
 }
@@ -37,6 +37,17 @@
 
     &.scrolled {
       height: 60px;
+
+      .logo {
+        p {
+          @include _fontSize(40px, 40px);
+
+          &:hover {
+            text-shadow: 5px 5px 0px #931616,
+              10px 10px 0px rgba(40, 40, 40, 0.5);
+          }
+        }
+      }
     }
   }
 }
@@ -51,19 +62,16 @@
 .logo {
   cursor: pointer;
   margin-right: 100px;
-  @include _hoverAnimation;
 
-  a {
-    position: relative;
-    height: 40px;
-    width: 40px;
-  }
+  p {
+    @include _fontSize(50px, 50px);
+    color: $white;
+    @include _headingFont;
+    text-shadow: 3px 3px 0px #931616, 6px 6px 0px rgba(0, 0, 0, 0.7);
+    transition: all 250ms ease-in-out;
 
-  svg {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
+    &:hover {
+      text-shadow: 6px 6px 0px #931616, 12px 12px 0px rgba(40, 40, 40, 0.5);
+    }
   }
 }

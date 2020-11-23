@@ -28,7 +28,7 @@ export default function Header({ nav }) {
       <div className={cl("container")}>
         <div className={cl("logo")}>
           <Link href={{ pathname: `/` }}>
-            <a>{SVG.logo}</a>
+            <p>MWC</p>
           </Link>
         </div>
         <Nav items={nav.menu_items} scrolled={scrolled} />

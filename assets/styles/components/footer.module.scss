@@ -39,10 +39,16 @@
 
 .social__item {
   display: flex;
+  @include _hoverAnimation;
 
   svg {
     fill: white;
     width: 20px;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
   }
 
   &:not(:last-child) {

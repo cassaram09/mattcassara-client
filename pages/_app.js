@@ -22,20 +22,24 @@ export default class _App extends App {
               path
             }
           }
+          global {
+            github_url
+            linkedin_url
+          }
         }
         `,
     });
 
-    return { nav: data.menu };
+    return { nav: data.menu, global: data.global };
   };
 
   render() {
-    const { Component, pageProps, router, nav } = this.props;
+    const { Component, pageProps, router, nav, global } = this.props;
 
     return (
       <div className="app">
         <SiteLoader />
-        <Layout nav={nav}>
+        <Layout nav={nav} global={global}>
           <AnimatePresence exitBeforeEnter>
             <motion.div
               key={router.route}

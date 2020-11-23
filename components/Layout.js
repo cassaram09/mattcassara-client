@@ -4,10 +4,11 @@ import Header from "../components/Header";
 
 Layout.propTypes = {
   nav: PropTypes.object,
+  global: PropTypes.object,
   children: PropTypes.node,
 };
 
-export default function Layout({ children, nav }) {
+export default function Layout({ children, nav, global }) {
   return (
     <>
       <Head>
@@ -19,7 +20,7 @@ export default function Layout({ children, nav }) {
 
       {children}
 
-      <Footer />
+      <Footer global={global} />
     </>
   );
 }

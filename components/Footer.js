@@ -4,22 +4,26 @@ import * as SVG from "./SVG";
 
 const cl = _classes(styles);
 
-class Footer extends React.Component {
-  render() {
-    return (
-      <footer className={cl("_")}>
-        <div className={cl("container")}>
-          <div className={cl("copyright")}>
-            <span>© 2020 Matt Cassara. All rights reserved</span>
-          </div>
-          <ul className={cl("social")}>
-            <li className={cl("social__item")}>{SVG.github}</li>
-            <li className={cl("social__item")}>{SVG.linkedin}</li>
-          </ul>
+export default function Footer({ global }) {
+  return (
+    <footer className={cl("_")}>
+      <div className={cl("container")}>
+        <div className={cl("copyright")}>
+          <span>© 2020 Matt Cassara. All rights reserved</span>
         </div>
-      </footer>
-    );
-  }
+        <ul className={cl("social")}>
+          <li className={cl("social__item")}>
+            <a href={global.github_url} target="_blank">
+              {SVG.github}
+            </a>
+          </li>
+          <li className={cl("social__item")}>
+            <a href={global.linkedin_url} target="_blank">
+              {SVG.linkedin}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+  );
 }
-
-export default Footer;
