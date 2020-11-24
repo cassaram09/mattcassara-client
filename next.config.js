@@ -1,16 +1,12 @@
-const OpenBrowserPlugin = require("open-browser-webpack-plugin");
-
 module.exports = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // Note: we provide webpack above so you should not `require` it
     // Perform customizations to webpack config
     // Important: return the modified config
 
-    if (isServer) {
-      require("./scripts/sitemap");
-    }
-
     if (dev && !isServer) {
+      const OpenBrowserPlugin = require("open-browser-webpack-plugin");
+
       config = Object.assign(config, {
         devServer: {
           compress: true,
