@@ -1,9 +1,9 @@
 import styles from "../assets/styles/components/categories.module.scss";
-import { _class } from "../utils/helpers";
-import { motion, useAnimation } from "framer-motion";
-import ScrollContainer from "./ScrollContainer";
+import { _classes } from "../utils/helpers";
+import { motion } from "framer-motion";
+import Reveal from "./Reveal";
 
-const cl = _class(styles, "categories");
+const cl = _classes(styles);
 
 Categories.propTypes = {
   categories: PropTypes.array,
@@ -19,7 +19,7 @@ export default function Categories({ categories }) {
       opacity: 1,
       transition: {
         when: "beforeChildren",
-        staggerChildren: 0.4,
+        staggerChildren: 0.2,
         delay: 0.25,
       },
     },
@@ -31,29 +31,20 @@ export default function Categories({ categories }) {
     },
   };
 
-  const controls = useAnimation();
-
   return (
-    <ScrollContainer onEnter={() => controls.start("visible")}>
-      <motion.ul
-        className={cl("")}
-        variants={list}
-        initial={"hidden"}
-        animate={controls}
-      >
-        {categories.map((cat) => {
-          const item = {
-            hidden: { opacity: 0, y: -50 },
-            visible: { opacity: 1, y: 0 },
-          };
+    <Reveal className={cl("_")} element={"ul"} variants={list}>
+      {categories.map((cat) => {
+        const item = {
+          hidden: { opacity: 0, y: -50 },
+          visible: { opacity: 1, y: 0 },
+        };
 
-          return (
-            <motion.li variants={item} key={cat.id} className={cl("tag")}>
-              <span>{cat.title}</span>
-            </motion.li>
-          );
-        })}
-      </motion.ul>
-    </ScrollContainer>
+        return (
+          <motion.li variants={item} key={cat.id} className={cl("tag")}>
+            <span>{cat.title}</span>
+          </motion.li>
+        );
+      })}
+    </Reveal>
   );
 }

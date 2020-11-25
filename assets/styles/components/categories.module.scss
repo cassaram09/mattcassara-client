@@ -1,13 +1,13 @@
 @import "../global/_variables.scss";
 @import "../global/_mixins.scss";
 
-.categories {
+._ {
   margin-top: 50px;
   display: flex;
   flex-wrap: wrap;
 }
 
-.categories__tag {
+.tag {
   span {
     @include _fontSize(15px, 15px);
     border: 1px solid $white;
