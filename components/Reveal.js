@@ -21,6 +21,7 @@ Reveal.propTypes = {
   delay: PropTypes.number,
   duration: PropTypes.number,
   element: PropTypes.string,
+  topOffset: PropTypes.string,
 };
 
 Reveal.defaultProps = {
@@ -65,13 +66,6 @@ const PRESETS = {
   },
 };
 
-const item = {
-  hidden: { opacity: 0, y: -50 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const logo = {};
-
 export default function Reveal({
   variants,
   reveal,
@@ -81,6 +75,7 @@ export default function Reveal({
   delay,
   duration,
   element,
+  topOffset,
 }) {
   const controls = useAnimation();
 
@@ -100,9 +95,6 @@ export default function Reveal({
     }
   };
 
-  if (preset === "down") {
-    console.log(getPreset(preset, { delay, duration }));
-  }
   const setVariants = () => getPreset(preset, { delay, duration }) || variants;
 
   useEffect(() => {
@@ -121,7 +113,11 @@ export default function Reveal({
       variants={setVariants()}
       transition={{ ease: "easeInOut" }}
     >
-      <Waypoint onEnter={onEnter} fireOnRapidScroll={false} />
+      <Waypoint
+        onEnter={onEnter}
+        fireOnRapidScroll={false}
+        topOffset={topOffset}
+      />
       {children}
     </Component>
   );
