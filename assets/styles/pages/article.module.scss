@@ -1,37 +1,33 @@
 @import "../global/_variables.scss";
 @import "../global/_mixins.scss";
 
-.article {
+._ {
   h1 {
-    color: $white;
     text-align: center;
   }
 }
 
-.article__container {
+.container {
   @include _container;
   @include _verticalPadding(50px, 50px);
 }
 
-.article__heading {
+.heading {
+  margin-top: 50px;
   @include _minWidthMobile {
     padding: 0px 100px;
   }
 }
 
-.article__hero_image {
-  height: 100%;
+.hero_image {
+  height: 400px;
   width: 100%;
   position: relative;
   margin: 80px 0px;
 
-  & > div {
-    display: block;
-    height: 100%;
-    width: 100%;
+  & > img {
     background-size: cover;
     background-position: center center;
-    height: 400px;
   }
 
   @include _minWidthMobile {
@@ -39,22 +35,22 @@
   }
 }
 
-.article__content {
+.content {
   @include _minWidthMobile {
     padding: 0px 100px;
   }
 }
 
-.article__date {
+.date {
   margin-top: 20px;
   text-align: center;
 }
 
-.article__categories {
+.categories {
   margin-top: 50px;
 }
 
-.article__categories__tag {
+.categories__tag {
   @include _fontSize(15px, 15px);
   border: 1px solid $white;
   padding: 5px 10px;

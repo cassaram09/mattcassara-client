@@ -1,10 +1,11 @@
 import styles from "../../assets/styles/pages/project.module.scss";
 import API from "../../utils/api";
-import { _class } from "../../utils/helpers";
+import { _classes } from "../../utils/helpers";
 import Title from "../../components/Title";
 import Reveal from "../../components/Reveal";
+import Image from "../../components/Image";
 
-const cl = _class(styles, "project");
+const cl = _classes(styles);
 
 Project.propTypes = {
   page: PropTypes.object,
@@ -15,24 +16,6 @@ Project.defaultProps = {
 };
 
 export default function Project({ page }) {
-  const renderImage = () => (
-    <Reveal className={cl("hero_image")} preset={"fadeDown"}>
-      <div
-        style={{
-          backgroundImage: `url(${page.featured_image.url})`,
-        }}
-        role="img"
-        aria-label={"alt"}
-      />
-    </Reveal>
-  );
-
-  const renderContent = () => (
-    <Reveal className={cl("content")} preset={"fadeUp"}>
-      <div dangerouslySetInnerHTML={{ __html: page.content }} />
-    </Reveal>
-  );
-
   return (
     <main className={cl("")}>
       <div className={cl("container")}>
@@ -40,9 +23,16 @@ export default function Project({ page }) {
           <Title title={page.title} />
         </div>
 
-        {renderImage()}
+        <Reveal className={cl("hero_image")} preset={"fadeUp"}>
+          <Image
+            src={page.featured_image.url}
+            alt={page.featured_image.alternativeText}
+          />
+        </Reveal>
 
-        {renderContent()}
+        <Reveal className={cl("content")} preset={"fade"} delay={1000}>
+          <div dangerouslySetInnerHTML={{ __html: page.content }} />
+        </Reveal>
       </div>
     </main>
   );
@@ -58,6 +48,7 @@ export const getServerSideProps = async (ctx) => {
           content
           featured_image {
             url
+            alternativeText
           }
         }
       }

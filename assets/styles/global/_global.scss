@@ -209,3 +209,28 @@ input {
   background: $red;
   color: $white;
 }
+
+.image.image_element,
+.image.image_background {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+.image.image_element {
+  object-fit: cover;
+
+  @include _IEOnly {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    width: 100%;
+  }
+}
+
+.image.image_background {
+  background-size: cover;
+  background-position: center center;
+}
