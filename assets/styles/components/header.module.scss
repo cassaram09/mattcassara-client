@@ -64,14 +64,15 @@
   margin-right: 100px;
 
   p {
+    @include _skew;
     @include _fontSize(50px, 50px);
     color: $white;
     @include _headingFont;
-    text-shadow: 3px 3px 0px #931616, 6px 6px 0px rgba(0, 0, 0, 0.7);
+    text-shadow: 3px 3px 0px $red, 6px 6px 0px rgba(0, 0, 0, 0.7);
     transition: all 250ms ease-in-out;
 
     &:hover {
-      text-shadow: 6px 6px 0px #931616, 12px 12px 0px rgba(40, 40, 40, 0.5);
+      text-shadow: 6px 6px 0px $red, 12px 12px 0px rgba(40, 40, 40, 0.5);
     }
   }
 }
