@@ -39,9 +39,15 @@
 
 .social__item {
   display: flex;
-  @include _hoverAnimation;
+
+  &:hover {
+    svg {
+      fill: $red;
+    }
+  }
 
   svg {
+    transition: fill 250ms ease-in-out;
     fill: white;
     width: 20px;
   }
