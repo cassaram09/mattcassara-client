@@ -14,16 +14,8 @@
 }
 
 ._ {
-  background: $offBlack;
   height: 60px;
-  z-index: 1;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  border-bottom: 1px solid $offBlack;
-  transition: all 250ms ease-in-out;
-
+  background: $offBlack;
   a {
     color: white;
   }
@@ -38,6 +30,9 @@
     &.scrolled {
       height: 60px;
 
+      .inner {
+        height: 60px;
+      }
       .logo {
         p {
           @include _fontSize(40px, 40px);
@@ -51,6 +46,21 @@
   }
 }
 
+.inner {
+  height: 60px;
+  background: $offBlack;
+  height: 60px;
+  z-index: 1;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  border-bottom: 1px solid $offBlack;
+  transition: all 250ms ease-in-out;
+  @include _minWidthMobile {
+    height: 80px;
+  }
+}
 .container {
   @include _container;
   display: flex;

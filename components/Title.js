@@ -7,11 +7,15 @@ const cl = _classes(styles);
 Title.propTypes = {
   title: PropTypes.string,
   tag: PropTypes.oneOf(["h1", "h2", "h3", "h4", "h4", "h6", "h6"]),
+  animation: PropTypes.string,
+  delay: PropTypes.number,
 };
 
 Title.defaultProps = {
   title: "",
   tag: "h1",
+  animation: "fadeUp",
+  delay: 500,
 };
 
 const TAGS = {
@@ -23,9 +27,9 @@ const TAGS = {
   h6: (title) => <h6>{title}</h6>,
 };
 
-export default function Title({ title, tag }) {
+export default function Title({ title, tag, animation, delay }) {
   return (
-    <Reveal preset={"fadeUp"} delay={500} className={cl("_")}>
+    <Reveal preset={animation} delay={delay} className={cl("_")}>
       {TAGS[tag](title)}
     </Reveal>
   );

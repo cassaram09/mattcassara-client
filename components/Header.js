@@ -25,13 +25,15 @@ export default function Header({ nav }) {
 
   return (
     <header className={cl(["_", scrolled && "scrolled"])}>
-      <div className={cl("container")}>
-        <div className={cl("logo")}>
-          <Link href={{ pathname: `/` }}>
-            <p>MWC</p>
-          </Link>
+      <div className={cl("inner")}>
+        <div className={cl("container")}>
+          <div className={cl("logo")}>
+            <Link href={{ pathname: `/` }}>
+              <p>MWC</p>
+            </Link>
+          </div>
+          <Nav items={nav.menu_items} scrolled={scrolled} />
         </div>
-        <Nav items={nav.menu_items} scrolled={scrolled} />
       </div>
     </header>
   );

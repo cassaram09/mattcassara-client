@@ -1,7 +1,9 @@
 import styles from "../assets/styles/pages/home.module.scss";
 import { _classes } from "../utils/helpers";
-import HeroImage from "../components/HeroImage";
+import Title from "../components/Title";
 import API from "../utils/API";
+import Reveal from "../components/Reveal";
+import Particles from "react-particles-js";
 
 const cl = _classes(styles);
 
@@ -12,12 +14,19 @@ Home.propTypes = {
 export default function Home({ page }) {
   return (
     <main className={cl("_")}>
-      <HeroImage
-        src={page.hero_image.url}
-        title={page.title}
-        height="tall"
-        subtitle={page.subtitle}
-      />
+      <div className={cl("background")}>
+        <Particles height="100%" />
+        <div className={cl("container")}>
+          <div className={cl("content")}>
+            <div className={cl("title")}>
+              <Title title={page.title} animation={"fadeDown"} />
+            </div>
+            <div className={cl("subtitle")}>
+              <Title title={page.subtitle} tag="h2" delay={1000} />
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }

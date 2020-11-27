@@ -9,14 +9,14 @@
 
 .page {
   position: relative;
-  top: 60px;
+  // top: 60px;
   transition: top 250ms ease-in-out;
-  min-height: calc(100vh - 110px);
+  // min-height: calc(100vh - 110px);
 }
 
 @include _minWidthMobile {
   .page {
-    min-height: calc(100vh - 130px);
-    top: 80px;
+    // min-height: calc(100vh - 130px);
+    // top: 80px;
   }
 }

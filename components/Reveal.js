@@ -56,13 +56,13 @@ const PRESETS = {
     hidden: { opacity: 0, x: 100 },
     visible: { opacity: 1, x: 0 },
   },
-  down: {
-    hidden: { y: "-100%" },
-    visible: { y: "0%" },
+  fadeLeftBg: {
+    hidden: { opacity: 0, x: -100 },
+    visible: { opacity: 1, x: 0 },
   },
-  border: {
-    hidden: { borderColor: "rgba(249, 157, 28, 0)" },
-    visible: { borderColor: "rgba(249, 157, 28, 1)" },
+  fadeRightBg: {
+    hidden: { opacity: 0, x: 100 },
+    visible: { opacity: 1, x: 0 },
   },
 };
 
