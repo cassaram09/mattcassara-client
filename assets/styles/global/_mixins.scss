@@ -100,11 +100,11 @@
 /* === TYPOGRAPHY ==== */
 
 @mixin _bodyFont {
-  font-family: "ShareTechMono", Menlo;
+  font-family: "RobotoLight", sans-serif;
 }
 
 @mixin _headingFont {
-  font-family: "BebasNeue", Menlo;
+  font-family: "BebasNeue", sans-serif;
 }
 
 @mixin _bodyFontSize {
