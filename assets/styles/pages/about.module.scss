@@ -2,9 +2,48 @@
 @import "../global/_mixins.scss";
 
 ._ {
-  h1 {
-    color: $white;
-    margin-bottom: 0px;
+  .title {
+    h1 {
+      text-align: center;
+      margin: 100px auto 150px;
+      text-shadow: 3px 3px 0px #931616, 6px 6px 0px rgba(0, 0, 0, 0.7);
+      transition: all 250ms ease-in-out;
+      transform: skew(0deg, -8deg);
+      @include _fontSize(60px, 70px);
+    }
+  }
+}
+
+.subtitle {
+  border-bottom: 1px solid $white;
+  margin-bottom: 50px;
+  position: relative;
+
+  &:after {
+    content: "";
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    height: 60px;
+    width: 50%;
+    transform: translate(0, 161%);
+    border-left: 1px solid $white;
+  }
+
+  @include _minWidthXSmall {
+    &:after {
+      background: $black;
+      transform: translate(0, 100%);
+      height: 58px;
+      width: 73px;
+    }
+  }
+
+  @include _minWidthMobile {
+    &:after {
+      height: 63px;
+      width: 100px;
+    }
   }
 }
 
@@ -14,33 +53,50 @@
 }
 
 .bio {
-  @include _verticalMargin(0px, 30px);
+  @include _verticalMargin(50px, 100px);
 
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-
   @include _minWidthMobile {
     padding: 50px;
-    display: flex;
-    @include _verticalMargin(50px, 100px);
+  }
+}
+
+.bio__inner {
+  display: flex;
+  flex-direction: column-reverse;
+
+  @include _minWidthXSmall {
+    flex-direction: row;
   }
 }
 
 .bio__avatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  @include _minWidthXSmall {
+    display: block;
+    margin-left: 30px;
+    margin-bottom: 0px;
+  }
   @include _minWidthMobile {
     flex: 0;
-    margin-right: 80px;
+    margin-left: 80px;
   }
 }
+
 .avatar {
-  width: 60vw;
-  height: 60vw;
-  border: 4px solid $white;
+  height: 150px;
+  width: 150px;
+  border-top: 1px solid $white;
   overflow: hidden;
   background: $white;
   position: relative;
-  margin: 0px auto;
+
+  padding: 5px;
+  background: $black;
 
   & > div {
     display: block;
@@ -48,6 +104,12 @@
     width: 100%;
     background-size: cover;
     background-position: center center;
+  }
+
+  @include _minWidthXSmall {
+    border: 1px solid $white;
+    border-right: none;
+    border-bottom: none;
   }
 
   @include _minWidthMobile {
@@ -57,109 +119,16 @@
 }
 
 .bio__excerpt {
-  margin-top: 50px;
-
+  margin-top: 0px;
   @include _minWidthMobile {
-    margin-top: 0px;
     flex: 1;
     width: 50%;
   }
 }
-.experience {
-  @include _minWidthMobile {
-    margin-top: 200px;
-  }
-}
 
-.experience__list {
-  @include _minWidthMobile {
-    padding: 50px 30px 0px 0px;
-  }
-}
-
-.experience__list__item {
-  @include _verticalMargin(0px, 80px);
-
-  @include _minWidthMobile {
-    display: flex;
-    @include _verticalMargin(0px, 120px);
-  }
-}
-
-.experience__list__item__left {
-  flex: 0;
-}
-
-.experience__list__item__logo {
-  height: 200px;
-  width: 200px;
-  border: 4px solid $white;
-  overflow: hidden;
-  background: $white;
-  position: relative;
-  margin-bottom: 15px;
-
-  & > div {
-    display: block;
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    background-position: center center;
-  }
-
-  @include _minWidthMobile {
-    left: 50px;
-    top: -30px;
-  }
-}
-
-.experience__list__item__right {
-  flex: 1;
-  @include _border(1px, 30px);
-
-  @include _minWidthMobile {
-    @include _border(1px, 0px);
-    padding: 50px 30px 50px 100px;
-  }
-}
-
-.skills {
-}
-
-.skills__list {
-  @include _verticalPadding(30px, 0px);
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.skills__list__item {
-  flex: 0 0 47.5%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 5%;
-
-  &:not(:nth-child(5n)) {
-    margin-right: 2.5%;
-  }
-
-  @include _minWidthXSmall {
-    flex: 0 0 30.8%;
-  }
-  @include _minWidthMobile {
-    flex: 0 0 18%;
-  }
-
-  p {
-    margin-top: 15px;
-  }
-}
-
-.skills__list__item__icon {
-  height: 100px;
-  svg {
-    height: 100%;
-    width: auto;
-    fill: white;
+.cta {
+  margin-top: 20px;
+  &:not(:last-of-type) {
+    margin-right: 30px;
   }
 }

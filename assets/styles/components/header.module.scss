@@ -43,8 +43,7 @@
           @include _fontSize(40px, 40px);
 
           &:hover {
-            text-shadow: 5px 5px 0px #931616,
-              10px 10px 0px rgba(40, 40, 40, 0.5);
+            text-shadow: 5px 5px 0px $red, 10px 10px 0px rgba(40, 40, 40, 0.5);
           }
         }
       }

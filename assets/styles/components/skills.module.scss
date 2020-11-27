@@ -1,0 +1,43 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+._ {
+}
+
+.list {
+  @include _verticalPadding(30px, 0px);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.list__item {
+  flex: 0 0 47.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5%;
+
+  &:not(:nth-child(5n)) {
+    margin-right: 2.5%;
+  }
+
+  @include _minWidthXSmall {
+    flex: 0 0 30.8%;
+  }
+  @include _minWidthMobile {
+    flex: 0 0 18%;
+  }
+
+  p {
+    margin-top: 15px;
+  }
+}
+
+.list__item__icon {
+  height: 100px;
+  svg {
+    height: 100%;
+    width: auto;
+    fill: white;
+  }
+}

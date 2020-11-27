@@ -1,0 +1,84 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+._ {
+  @include _minWidthMobile {
+    margin-top: 200px;
+  }
+}
+
+.list {
+  @include _minWidthMobile {
+    padding: 50px 30px 0px 0px;
+  }
+}
+
+.list__item {
+  @include _verticalMargin(0px, 80px);
+
+  @include _minWidthMobile {
+    display: flex;
+    @include _verticalMargin(0px, 200px);
+  }
+
+  &:hover {
+    .list__item__right,
+    .list__item__logo {
+      border-color: $lightRed;
+    }
+  }
+}
+
+.list__item__left {
+  flex: 0;
+}
+
+.list__item__logo {
+  height: 200px;
+  width: 200px;
+  border: 1px solid $white;
+  overflow: hidden;
+  position: relative;
+  border-top: none;
+  border-left: none;
+  padding: 5px;
+  background: $black;
+  transition: all 250ms ease-in-out;
+  & > div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  @include _minWidthMobile {
+    left: 50px;
+    top: -30px;
+  }
+}
+
+.list__item__right {
+  flex: 1;
+  border: 1px solid $white;
+  border-right: none;
+  border-top: none;
+  padding: 30px;
+  transition: all 250ms ease-in-out;
+
+  @include _minWidthMobile {
+    padding: 0px;
+    padding: 0px 30px 50px 100px;
+  }
+}
+
+.company_title {
+  margin-top: 70px;
+}
+
+.dates {
+  @include _fontSize(14px, 14px);
+  margin-bottom: 10px;
+  position: relative;
+  top: -15px;
+}

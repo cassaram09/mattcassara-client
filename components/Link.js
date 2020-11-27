@@ -8,6 +8,7 @@ CustomLink.propTypes = {
   query: PropTypes.object,
   onClick: PropTypes.func,
   as: PropTypes.string,
+  external: PropTypes.bool,
 };
 
 CustomLink.defaultProps = {
@@ -26,8 +27,17 @@ export default function CustomLink({
   query,
   children,
   as,
+  external,
 }) {
   const href = { pathname: path, query };
+
+  if (external) {
+    return (
+      <a className={className} onClick={onClick} href={path} target="_blank">
+        {title || children || path}
+      </a>
+    );
+  }
 
   return (
     <Link href={href} as={as}>
