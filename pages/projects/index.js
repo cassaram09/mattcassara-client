@@ -1,5 +1,5 @@
 import styles from "../../assets/styles/pages/projects.module.scss";
-import API from "../../utils/api";
+import API from "../../utils/API";
 import { _classes } from "../../utils/helpers";
 import { motion } from "framer-motion";
 import Link from "../../components/Link";
