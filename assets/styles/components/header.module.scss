@@ -76,7 +76,8 @@
 
   p {
     @include _skew;
-    @include _fontSize(50px, 50px);
+    @include _fontSize(40px, 40px);
+
     color: $white;
     @include _headingFont;
     text-shadow: 3px 3px 0px $red, 6px 6px 0px rgba(0, 0, 0, 0.7);
@@ -84,6 +85,12 @@
 
     &:hover {
       text-shadow: 6px 6px 0px $red, 12px 12px 0px rgba(40, 40, 40, 0.5);
+    }
+  }
+
+  @include _minWidthMobile {
+    p {
+      @include _fontSize(50px, 50px);
     }
   }
 }
