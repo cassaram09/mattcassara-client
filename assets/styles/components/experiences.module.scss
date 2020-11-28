@@ -39,8 +39,7 @@
   border: 1px solid $white;
   overflow: hidden;
   position: relative;
-  border-top: none;
-  border-left: none;
+
   padding: 5px;
   background: $black;
   transition: all 250ms ease-in-out;
@@ -69,6 +68,10 @@
   @include _minWidthMobile {
     padding: 0px;
     padding: 0px 30px 50px 100px;
+  }
+
+  h3 {
+    font-size: $h3-size;
   }
 }
 

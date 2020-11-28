@@ -67,9 +67,12 @@ export default function Experiences({ experiences }) {
                 </Reveal>
               </div>
               <div className={cl("list__item__right")}>
-                {roles.map((r) => (
-                  <h3 key={r}>{r}</h3>
-                ))}
+                <div>
+                  {roles.map((r) => (
+                    <h3 key={r}>{r}</h3>
+                  ))}
+                </div>
+
                 <h4 className={cl("company_title")}>{experience.title}</h4>
                 <p className={cl("dates")}>
                   {moment(experience.start_date).format("MMMM YYYY")} -
