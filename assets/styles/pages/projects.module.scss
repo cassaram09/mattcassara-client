@@ -12,26 +12,37 @@
   @include _verticalPadding(50px, 50px);
 }
 
-.project {
-  // @include _verticalPadding(0px, 50px);
-  // background: blue;
-}
-
-.project__list {
+.list {
   @include _verticalPadding(30px, 0px);
   display: flex;
   flex-wrap: wrap;
+
+  @include _minWidthSmall {
+    margin-left: 30px;
+  }
 }
 
-.project__list__item {
+.list__item {
   flex: 1 1 100%;
+
+  &:hover {
+    .list__item__content {
+      border-color: $red;
+
+      h2 {
+        text-shadow: 4px 4px 0px $red, 8px 8px 0px rgba(0, 0, 0, 0.7);
+      }
+    }
+  }
 
   a {
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   @include _verticalMargin(0px, 80px);
-  @include _border(1px, 15px);
 
   @include _minWidthSmall {
     flex: 0 0 48%;
@@ -41,12 +52,12 @@
     }
   }
 
-  @include _minWidthMobile {
-    flex: 0 0 31.3%;
-    margin-right: 3%;
+  @include _minWidthTablet {
+    flex: 0 0 30%;
+    margin-right: 5%;
 
     &:nth-child(2n) {
-      margin-right: 3%;
+      margin-right: 5%;
     }
 
     &:nth-child(3n) {
@@ -55,28 +66,72 @@
   }
 }
 
-.project__list__item__logo {
+.list__item__logo {
   height: 60vw;
   width: 100%;
   overflow: hidden;
+  background: $black;
+  position: relative;
+  z-index: 1;
+  transition: 250ms ease-in-out;
 
   & > div {
     display: block;
     height: 100%;
     width: 100%;
-    background-size: contain;
+    background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
   }
-  @include _minWidthSmall {
-    height: 30vw;
-  }
 
-  @include _minWidthMobile {
-    height: 15vw;
+  @include _minWidthSmall {
+    height: 200px;
+    width: 200px;
+    border: 1px solid $white;
   }
 }
 
-.project__list__item__content {
-  margin-top: 20px;
+.list__item__content {
+  position: relative;
+  flex: 1;
+  text-align: right;
+  padding-top: 30px;
+  border-bottom: 1px solid white;
+  transition: 250ms ease-in-out;
+
+  h2 {
+    font-size: $h2-size;
+    margin-right: 20px;
+    transition: all 250ms ease-in-out;
+    text-shadow: 4px 4px 0px $black, 8px 8px 0px rgba(0, 0, 0, 0.7);
+  }
+
+  p {
+    margin-bottom: 30px;
+    @include _fontSize(18px, 20px);
+    text-align: left;
+  }
+
+  @include _minWidthSmall {
+    margin-right: 30px;
+
+    h2 {
+      text-align: right;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      height: 120px;
+      width: 70%;
+      background: $black;
+      transform: translate(0px, -101%);
+      z-index: 0;
+      border-right: 1px solid $white;
+      border-top: 1px solid $white;
+      transition: 250ms ease-in-out;
+    }
+  }
 }

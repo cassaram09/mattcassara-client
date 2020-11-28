@@ -16,6 +16,8 @@
 ._ {
   height: 60px;
   background: $offBlack;
+  position: relative;
+  z-index: 2;
   a {
     color: white;
   }

@@ -42,7 +42,7 @@ export default function Projects({ page, projects }) {
           variants={list}
           initial={"hidden"}
           animate={"visible"}
-          className={cl("project__list")}
+          className={cl("list")}
         >
           {projects.map((project) => {
             const src = project.logo && project.logo.url;
@@ -54,7 +54,7 @@ export default function Projects({ page, projects }) {
 
             return (
               <motion.li
-                className={cl("project__list__item")}
+                className={cl("list__item")}
                 key={project.id}
                 variants={item}
               >
@@ -62,18 +62,18 @@ export default function Projects({ page, projects }) {
                   path={"/projects/[projectSlug]"}
                   as={`/projects/${project.slug}`}
                 >
-                  <p>{project.company.replace(/_/g, " ")}</p>
-                  <div className={cl("project__list__item__logo")}>
+                  <div className={cl("list__item__logo")}>
                     <div
                       style={{ backgroundImage: `url('${src}')` }}
                       role="img"
                       aria-label={alt}
                     />
                   </div>
-                  <div className={cl("project__list__item__content")}>
+                  <div className={cl("list__item__content")}>
                     <h2>{project.title}</h2>
                     <p>{project.excerpt}</p>
                   </div>
+                  {/* <p>{project.company.replace(/_/g, " ")}</p> */}
                 </Link>
               </motion.li>
             );
