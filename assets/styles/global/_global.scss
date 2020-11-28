@@ -237,8 +237,9 @@ input {
 
 #tsparticles {
   position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
+  top: -100px;
+  left: -100px;
+  right: -100px;
+  bottom: -100px;
+  z-index: 1;
 }

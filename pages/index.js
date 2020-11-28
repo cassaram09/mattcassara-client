@@ -15,7 +15,7 @@ export default function Home({ page }) {
   return (
     <main className={cl("_")}>
       <div className={cl("background")}>
-        <Particles height="100%" />
+        <Particles height="100%" params={page.particles_params} />
         <div className={cl("container")}>
           <div className={cl("content")}>
             <div className={cl("title")}>
@@ -38,9 +38,7 @@ export const getStaticProps = async () => {
         home {
           title
           subtitle
-          hero_image {
-            url
-          }
+          particles_params
         }
       }
       `,
