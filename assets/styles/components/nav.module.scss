@@ -65,7 +65,7 @@
   a {
     transition: all 250ms ease-in-out;
     color: white;
-    @include _fontSize(24px, 28px);
+    @include _fontSize(36px, 40px);
     border-bottom: 2px solid transparent;
     position: relative;
 

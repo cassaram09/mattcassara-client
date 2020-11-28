@@ -64,7 +64,7 @@ export default function Nav({ items, scrolled }) {
                 initial={"hidden"}
               >
                 <Link
-                  title={item.label}
+                  title={item.title}
                   path={item.path}
                   onClick={() => toggleNav(false)}
                 />
