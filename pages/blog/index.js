@@ -1,5 +1,5 @@
 import styles from "../../assets/styles/pages/blog.module.scss";
-import API from "../../utils/api";
+import API from "../../utils/API";
 import { _class } from "../../utils/helpers";
 import Link from "../../components/Link";
 import moment from "moment";

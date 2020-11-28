@@ -1,6 +1,6 @@
 import styles from "../../assets/styles/pages/about.module.scss";
 import Experiences from "../../components/Experiences";
-import API from "../../utils/api";
+import API from "../../utils/API";
 import { _classes } from "../../utils/helpers";
 import Reveal from "../../components/Reveal";
 import Title from "../../components/Title";

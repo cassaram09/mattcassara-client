@@ -1,4 +1,4 @@
-import API from "../utils/api";
+import API from "../utils/API";
 import globby from "globby";
 import prettier from "prettier";
 

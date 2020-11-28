@@ -4,7 +4,7 @@ import "../assets/styles/main.scss";
 import { motion, AnimatePresence } from "framer-motion";
 import Layout from "../components/Layout";
 import SiteLoader from "../components/SiteLoader";
-import API from "../utils/api";
+import API from "../utils/API";
 
 App.propTypes = {
   nav: PropTypes.object,

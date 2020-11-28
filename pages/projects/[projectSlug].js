@@ -1,5 +1,5 @@
 import styles from "../../assets/styles/pages/project.module.scss";
-import API from "../../utils/api";
+import API from "../../utils/API";
 import { _classes } from "../../utils/helpers";
 import Title from "../../components/Title";
 import Reveal from "../../components/Reveal";
