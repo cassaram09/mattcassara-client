@@ -540,7 +540,7 @@ export const aws = (
   <svg
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 300.7 179.8"
+    viewBox="-70 -10 450.7 179.8"
     width="2500"
     height="1495"
   >

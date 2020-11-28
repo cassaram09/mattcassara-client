@@ -55,7 +55,7 @@ export default function Skills({ skills }) {
               variants={item}
             >
               <div className={cl("list__item__icon")}>{SVG[skill.icon]}</div>
-              <p className={cl("list__item__title")}>{skill.title}</p>
+              {/* <p className={cl("list__item__title")}>{skill.title}</p> */}
             </motion.li>
           );
         })}
