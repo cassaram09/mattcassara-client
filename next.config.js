@@ -1,3 +1,5 @@
+const os = require("os");
+
 module.exports = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // Note: we provide webpack above so you should not `require` it
@@ -7,11 +9,24 @@ module.exports = {
     if (dev && !isServer) {
       const OpenBrowserPlugin = require("open-browser-webpack-plugin");
 
+      const ifaces = os.networkInterfaces();
+      let ip = "localhost";
+
+      Object.keys(ifaces).forEach((ifname) => {
+        ifaces[ifname].forEach((iface) => {
+          if (iface.family === "IPv4" && !iface.internal) {
+            ip = iface.address;
+          } else {
+            return;
+          }
+        });
+      });
+
       config = Object.assign(config, {
         devServer: {
           compress: true,
           port: 3000,
-          host: "localhost",
+          host: ip,
           hot: true,
           inline: true,
           historyApiFallback: true,
@@ -25,7 +40,7 @@ module.exports = {
 
       config.plugins.push(
         new OpenBrowserPlugin({
-          url: `http://localhost:3000/`,
+          url: `http://${ip}:3000/`,
         })
       );
     }
