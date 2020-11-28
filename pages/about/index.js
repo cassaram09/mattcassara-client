@@ -50,9 +50,10 @@ export default function About({ page, skills, experiences }) {
       </div>
 
       <div className={cl("bio__inner")}>
-        <div className={cl("bio__excerpt")}>
-          <div dangerouslySetInnerHTML={{ __html: page.bio }} />
-        </div>
+        <div
+          className={cl("bio__excerpt")}
+          dangerouslySetInnerHTML={{ __html: page.bio }}
+        ></div>
         <div className={cl("bio__avatar")}>{renderAvatar()}</div>
       </div>
 
