@@ -1,0 +1,85 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+._ {
+  z-index: 100;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0px;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 25px;
+
+  &.grey {
+    background: $lightGrey;
+  }
+
+  &.white {
+    background: #fff;
+  }
+
+  @include _minWidthMobile {
+    padding: 50px;
+  }
+
+  @include _minWidthTablet {
+    padding: 80px;
+    overflow: hidden;
+  }
+
+  @include _minWidthLarge {
+    padding: 100px 150px 120px;
+  }
+
+  @include _minWidthTablet {
+    overflow: hidden;
+  }
+}
+
+.container {
+  position: relative;
+  max-width: 800px;
+  margin: 0px auto;
+  background: transparent;
+}
+
+.close {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+
+  & > div {
+    text-align: right;
+    margin-bottom: 10px;
+  }
+  svg {
+    fill: $white;
+    @include _hoverAnimation;
+    cursor: pointer;
+  }
+
+  button[class*="hamburger"] {
+    display: block;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 2;
+
+    div[class*="line"] {
+      height: 3px;
+      width: 75%;
+      left: 6px;
+      background-color: $mediumGrey;
+    }
+
+    @include _hoverAnimation;
+
+    @include _minWidthMobile {
+      top: 15px;
+      right: 15px;
+    }
+  }
+}
