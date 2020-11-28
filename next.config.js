@@ -60,4 +60,11 @@ module.exports = {
     // Important: return the modified config
     return config;
   },
+  redirects: () => [
+    {
+      source: "/blog",
+      destination: "/",
+      permanent: true,
+    },
+  ],
 };
