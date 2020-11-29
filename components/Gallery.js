@@ -16,6 +16,10 @@ Gallery.defaultProps = {
 };
 
 export default function Gallery({ images, onClick }) {
+  if (images.length === 0) {
+    return null;
+  }
+
   return (
     <ul className={cl(["_"])}>
       {images.map((image, index) => (
