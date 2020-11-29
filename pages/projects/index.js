@@ -4,7 +4,8 @@ import { _classes } from "../../utils/helpers";
 import { motion } from "framer-motion";
 import Link from "../../components/Link";
 import Title from "../../components/Title";
-
+import Reveal from "../../components/Reveal";
+import moment from "moment";
 const cl = _classes(styles);
 
 Projects.propTypes = {
@@ -18,6 +19,7 @@ Projects.defaultProps = {
 };
 
 export default function Projects({ page, projects }) {
+  console.log(projects);
   const list = {
     visible: {
       opacity: 1,
@@ -36,15 +38,18 @@ export default function Projects({ page, projects }) {
   };
   const renderProjects = () => {
     return (
-      <section className={cl("project")}>
-        <Title title={page.title} />
-        <motion.ul
-          variants={list}
-          initial={"hidden"}
-          animate={"visible"}
-          className={cl("list")}
-        >
-          {projects.map((project) => {
+      <motion.ul
+        variants={list}
+        initial={"hidden"}
+        animate={"visible"}
+        className={cl("list")}
+      >
+        {projects
+          .sort(
+            (a, b) =>
+              moment(b.completed_on).toDate() - moment(a.completed_on).toDate()
+          )
+          .map((project) => {
             const src = project.logo && project.logo.url;
             const alt = (project.logo && project.logo.alt) || src;
             const item = {
@@ -71,21 +76,41 @@ export default function Projects({ page, projects }) {
                   </div>
                   <div className={cl("list__item__content")}>
                     <h2>{project.title}</h2>
+                    <h3>
+                      {project.company.replace(/_/g, " ")} -{" "}
+                      <span className={cl("date")}>
+                        {moment(project.completed_on).format("YYYY")}
+                      </span>
+                    </h3>
+
                     <p>{project.excerpt}</p>
                   </div>
-                  {/* <p>{project.company.replace(/_/g, " ")}</p> */}
                 </Link>
               </motion.li>
             );
           })}
-        </motion.ul>
-      </section>
+      </motion.ul>
     );
   };
 
+  const renderIntro = () => (
+    <div className={cl("intro")}>
+      <Title title={page.title} />
+      <Reveal>
+        <div
+          dangerouslySetInnerHTML={{ __html: page.description }}
+          preset={"fadeUp"}
+        />
+      </Reveal>
+    </div>
+  );
+
   return (
     <main className={cl("")}>
-      <div className={cl("container")}>{renderProjects()}</div>
+      <div className={cl("container")}>
+        {renderIntro()}
+        {renderProjects()}
+      </div>
     </main>
   );
 }
@@ -97,9 +122,7 @@ export const getStaticProps = async () => {
         projectpage {
           id
           title
-          hero_image {
-            url
-          }
+          description
         }
         projects {
           id
@@ -111,6 +134,7 @@ export const getStaticProps = async () => {
           }
           company
           slug
+          completed_on
         }
       }
       `,
