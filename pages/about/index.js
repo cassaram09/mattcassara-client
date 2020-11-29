@@ -13,15 +13,18 @@ About.propTypes = {
   page: PropTypes.object,
   skills: PropTypes.array,
   experiences: PropTypes.array,
+  global: PropTypes.object,
 };
 
 About.defaultProps = {
   page: {},
   skills: [],
   experiences: [],
+  global: {},
 };
 
-export default function About({ page, skills, experiences }) {
+export default function About({ page, skills, experiences, global }) {
+  console.log(global);
   const renderTitle = () => (
     <div className={cl("title")}>
       <Title title={page.title} />
@@ -59,13 +62,19 @@ export default function About({ page, skills, experiences }) {
 
       <CTA
         text={"View LinkedIn"}
-        path={"https://www.google.com"}
+        path={global.linkedin_url}
         external
         className={cl("cta")}
       />
       <CTA
         text={"View Github"}
-        path={"https://www.google.com"}
+        path={global.github_url}
+        external
+        className={cl("cta")}
+      />
+      <CTA
+        text={"Download Resume"}
+        path={global.resume.url}
         external
         className={cl("cta")}
       />
@@ -86,16 +95,13 @@ export default function About({ page, skills, experiences }) {
 }
 
 export const getStaticProps = async () => {
-  const { about, experiences, skills } = await new API().graphql({
+  const { about, experiences, skills, global } = await new API().graphql({
     query: `
       query GetAbout{
         about {
           title
           subtitle
           bio
-          hero_image {
-            url
-          }
           avatar {
             url
           }
@@ -121,15 +127,25 @@ export const getStaticProps = async () => {
           title
           icon
         }
+        global {
+          github_url
+          linkedin_url
+          resume {
+            url
+          }
+        }
       }
       `,
   });
+
+  console.log(skills, global);
 
   return {
     props: {
       page: about,
       experiences,
       skills,
+      global,
     },
   };
 };
