@@ -96,11 +96,8 @@ export default function Projects({ page, projects }) {
   const renderIntro = () => (
     <div className={cl("intro")}>
       <Title title={page.title} />
-      <Reveal>
-        <div
-          dangerouslySetInnerHTML={{ __html: page.description }}
-          preset={"fadeUp"}
-        />
+      <Reveal delay={500} preset={"fadeUp"}>
+        <div dangerouslySetInnerHTML={{ __html: page.description }} />
       </Reveal>
     </div>
   );

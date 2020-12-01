@@ -8,6 +8,7 @@ import Modal from "../../components/Modal";
 import { useState } from "react";
 import Image from "../../components/Image";
 import Slick from "react-slick";
+import CTA from "../../components/CTA";
 
 const cl = _classes(styles);
 
@@ -65,6 +66,13 @@ export default function Project({ page }) {
       <div className={cl("container")}>
         <Reveal className={cl("content")} preset={"fade"} delay={500}>
           <div dangerouslySetInnerHTML={{ __html: page.content }} />
+
+          <CTA
+            text={"View Project"}
+            path={page.link}
+            external
+            className={cl("cta")}
+          />
         </Reveal>
 
         <Reveal preset={"fadeUp"} delay={500}>
