@@ -51,7 +51,8 @@
   p {
     margin-top: 15px;
     text-align: center;
-    @include _fontSize(16px, 18px);
+    @include _fontSize(18px, 18px);
+    @include _headingFont;
   }
 }
 
