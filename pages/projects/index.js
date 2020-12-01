@@ -19,7 +19,6 @@ Projects.defaultProps = {
 };
 
 export default function Projects({ page, projects }) {
-  console.log(projects);
   const list = {
     visible: {
       opacity: 1,
@@ -36,6 +35,7 @@ export default function Projects({ page, projects }) {
       },
     },
   };
+
   const renderProjects = () => {
     return (
       <motion.ul

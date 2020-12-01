@@ -24,7 +24,6 @@ About.defaultProps = {
 };
 
 export default function About({ page, skills, experiences, global }) {
-  console.log(global);
   const renderTitle = () => (
     <div className={cl("title")}>
       <Title title={page.title} />
@@ -137,8 +136,6 @@ export const getStaticProps = async () => {
       }
       `,
   });
-
-  console.log(skills, global);
 
   return {
     props: {

@@ -15,7 +15,6 @@ export default function Home({ page }) {
   const [width, setWidth] = useState("");
 
   const resize = () => {
-    console.log("RESIZE", window.innerWidth);
     if (window.innerWidth < 768) {
       return setWidth("mobile");
     }
@@ -34,10 +33,8 @@ export default function Home({ page }) {
   const setParticleParams = () => {
     const params = page.particles_params;
 
-    console.log("PARAMS", width, params.particles.number);
     if (width === "mobile") {
       params.particles.number.value = 15;
-      console.log(params);
     }
 
     return params;
