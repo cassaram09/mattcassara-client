@@ -35,6 +35,7 @@ export default function Project({ page }) {
     fade: true,
   };
 
+  console.log(page);
   return (
     <main className={cl("")}>
       <Modal
@@ -67,12 +68,14 @@ export default function Project({ page }) {
         <Reveal className={cl("content")} preset={"fade"} delay={500}>
           <div dangerouslySetInnerHTML={{ __html: page.content }} />
 
-          <CTA
-            text={"View Project"}
-            path={page.link}
-            external
-            className={cl("cta")}
-          />
+          {page.link && (
+            <CTA
+              text={"View Project"}
+              path={page.link}
+              external
+              className={cl("cta")}
+            />
+          )}
         </Reveal>
 
         <Reveal preset={"fadeUp"} delay={500}>
@@ -97,6 +100,7 @@ export const getServerSideProps = async (ctx) => {
           id
           title
           content
+          link
           featured_image {
             url
             alternativeText
