@@ -1,0 +1,16 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+._ {
+  height: calc(100vh - 130px);
+  text-align: center;
+}
+
+.container {
+  @include _container;
+  @include _verticalPadding(50px, 50px);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
