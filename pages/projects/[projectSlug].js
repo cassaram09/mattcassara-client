@@ -92,7 +92,7 @@ export default function Project({ page }) {
   );
 }
 
-export const getServerSideProps = async (ctx) => {
+export const getStaticProps = async (ctx) => {
   const { projectBySlug } = await new API().graphql({
     query: `
       query GetProject {
@@ -120,3 +120,15 @@ export const getServerSideProps = async (ctx) => {
     },
   };
 };
+
+export async function getStaticPaths() {
+  // Call an external API endpoint to get posts
+  const projects = await new API().get("/projects");
+
+  // Get the paths we want to pre-render based on posts
+  const paths = projects.map((post) => `/projects/${post.slug}`);
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: false };
+}

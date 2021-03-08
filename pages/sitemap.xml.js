@@ -2,11 +2,14 @@ import API from "../utils/API";
 import globby from "globby";
 import prettier from "prettier";
 
-export default function Sitemap() {
-  return null;
+Sitemap.propTypes = {
+  sitemap: PropTypes.any,
+};
+export default function Sitemap({ sitemap }) {
+  return <div style={{ minHeight: "100vh" }}>{`${sitemap}`}</div>;
 }
 
-export const getServerSideProps = async ({ res }) => {
+export const getStaticProps = async ({ res }) => {
   const { articles, projects } = await new API().graphql({
     query: `
       query GetData{
@@ -26,11 +29,11 @@ export const getServerSideProps = async ({ res }) => {
 
   const sitemap = await createSitemap({ articles, projects });
 
-  res.setHeader("Content-Type", "text/xml");
-  res.write(sitemap);
-  res.end();
+  // res.setHeader("Content-Type", "text/xml");
+  // res.write(sitemap);
+  // res.end();
 
-  return { props: {} };
+  return { props: { sitemap } };
 };
 async function createSitemap({ articles, projects }) {
   let sitemap = "";
@@ -69,7 +72,7 @@ async function createSitemap({ articles, projects }) {
         route = path.replace("/index", "");
       }
 
-      return `<url><loc>${`https://www.mattcassara.com${route}`}</loc></url>`;
+      return `<url><loc>${`https://www.mattcassara.com${route}`}</loc></url>\n`;
     })
     .join("");
 

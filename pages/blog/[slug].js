@@ -48,7 +48,7 @@ export default function Article({ page }) {
   );
 }
 
-export const getServerSideProps = async (ctx) => {
+export const getStaticProps = async (ctx) => {
   const { articleBySlug } = await new API().graphql({
     query: `
       query GetArticle {
@@ -75,3 +75,16 @@ export const getServerSideProps = async (ctx) => {
     },
   };
 };
+
+export async function getStaticPaths() {
+  // Call an external API endpoint to get posts
+  const articles = await new API().get("/articles");
+
+  console.log(articles);
+  // Get the paths we want to pre-render based on posts
+  const paths = articles.map((post) => `/blog/${post.slug}`);
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: false };
+}

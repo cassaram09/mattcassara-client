@@ -16,8 +16,9 @@ export default class API {
   };
 
   get = async (path, options) => {
+    console.log(`${this.base}${path}`);
     try {
-      const { data } = await axios.post(`${this.base}${path}`, options);
+      const { data } = await axios.get(`${this.base}${path}`, options);
       return data;
     } catch (e) {
       console.error(e.error || e.message || e);
