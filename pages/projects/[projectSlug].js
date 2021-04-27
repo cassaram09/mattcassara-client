@@ -118,6 +118,7 @@ export const getStaticProps = async (ctx) => {
     props: {
       page: projectBySlug,
     },
+    revalidate: 5,
   };
 };
 
@@ -130,5 +131,5 @@ export async function getStaticPaths() {
 
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
-  return { paths, fallback: false, revalidate: 5 };
+  return { paths, fallback: false };
 }
