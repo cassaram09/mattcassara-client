@@ -81,5 +81,6 @@ export const getStaticProps = async () => {
     props: {
       page: data.home,
     },
+    revalidate: 5,
   };
 };

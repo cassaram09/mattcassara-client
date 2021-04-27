@@ -33,7 +33,7 @@ export const getStaticProps = async ({ res }) => {
   // res.write(sitemap);
   // res.end();
 
-  return { props: { sitemap } };
+  return { props: { sitemap }, revalidate: 5 };
 };
 async function createSitemap({ articles, projects }) {
   let sitemap = "";

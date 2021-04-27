@@ -144,5 +144,6 @@ export const getStaticProps = async () => {
       skills,
       global,
     },
+    revalidate: 5,
   };
 };
