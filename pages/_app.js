@@ -40,7 +40,7 @@ export default function App({ Component, pageProps, router, nav, global }) {
   return (
     <div className="app">
       <SiteLoader />
-      <Layout nav={nav} global={global}>
+      <Layout nav={nav} global={global} {...pageProps}>
         <AnimatePresence exitBeforeEnter>
           <motion.div
             key={router.route}

@@ -1,4 +1,4 @@
-Sitemap: https://landlordgrades.com/sitemap.xml
+Sitemap: https://mattcassara.com/sitemap.xml
 
 User-agent: *
 Allow: /*
