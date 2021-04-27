@@ -5,6 +5,9 @@ import * as SVG from "./SVG";
 const cl = _classes(styles);
 
 export default function Footer({ global }) {
+  if (!global) {
+    return null;
+  }
   return (
     <footer className={cl("_")}>
       <div className={cl("container")}>
