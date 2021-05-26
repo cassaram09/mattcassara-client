@@ -15,7 +15,7 @@
 }
 
 .subtitle {
-  border-bottom: 1px solid $white;
+  border-bottom: 2px solid $white;
   margin-bottom: 50px;
   position: relative;
 
@@ -27,7 +27,7 @@
     height: 60px;
     width: 50%;
     transform: translate(0, 102%);
-    border-left: 1px solid $white;
+    border-left: 2px solid $white;
     background: $black;
   }
   h2 {
@@ -95,7 +95,7 @@
 .avatar {
   height: 150px;
   width: 150px;
-  border: 1px solid $white;
+  border: 2px solid $white;
   overflow: hidden;
   background: $white;
   position: relative;

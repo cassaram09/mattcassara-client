@@ -3,6 +3,7 @@ import Reveal from "./Reveal";
 import moment from "moment";
 import styles from "../assets/styles/components/experiences.module.scss";
 import { _classes } from "../utils/helpers";
+import { motion } from "../utils/FramerMotion";
 
 const cl = _classes(styles);
 
@@ -14,24 +15,44 @@ Experiences.defaultProps = {
   experiences: [],
 };
 
-export default function Experiences({ experiences }) {
-  const list = {
-    visible: {
-      opacity: 1,
-      transition: {
-        when: "beforeChildren",
-        staggerChildren: 0.4,
-        delay: 0.5,
-      },
+const list = {
+  visible: {
+    opacity: 1,
+    transition: {
+      when: "beforeChildren",
+      staggerChildren: 0.4,
+      delay: 0.5,
     },
-    hidden: {
-      opacity: 0,
-      transition: {
-        when: "afterChildren",
-      },
+  },
+  hidden: {
+    opacity: 0,
+    transition: {
+      when: "afterChildren",
     },
-  };
+  },
+};
 
+const item = {
+  visible: {
+    opacity: 1,
+  },
+  hidden: {
+    opacity: 0,
+  },
+};
+
+const logo = {
+  visible: {
+    opacity: 1,
+    x: "0%",
+  },
+  hidden: {
+    opacity: 0,
+    x: "-50%",
+  },
+};
+
+export default function Experiences({ experiences }) {
   const sortedExperiences = experiences.sort((a, b) => {
     return moment(b.start_date).toDate() - moment(a.start_date).toDate();
   });
@@ -47,24 +68,26 @@ export default function Experiences({ experiences }) {
           const alt = (experience.logo && experience.logo.alt) || src;
 
           return (
-            <Reveal
+            <motion.li
               element={"li"}
               preset={"fadeUp"}
               key={experience.id}
               className={cl("list__item")}
+              variants={item}
             >
               <div className={cl("list__item__left")}>
-                <Reveal
+                <motion.div
                   preset={"fadeLeft"}
                   className={cl("list__item__logo")}
                   delay={500}
+                  variants={logo}
                 >
                   <div
                     style={{ backgroundImage: `url('${src}')` }}
                     role="img"
                     aria-label={alt}
                   />
-                </Reveal>
+                </motion.div>
               </div>
               <div className={cl("list__item__right")}>
                 <div>
@@ -83,7 +106,7 @@ export default function Experiences({ experiences }) {
 
                 <div dangerouslySetInnerHTML={{ __html: experience.content }} />
               </div>
-            </Reveal>
+            </motion.li>
           );
         })}
       </Reveal>

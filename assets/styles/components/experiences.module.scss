@@ -36,7 +36,7 @@
 .list__item__logo {
   height: 200px;
   width: 200px;
-  border: 1px solid $white;
+  border: 2px solid $white;
   overflow: hidden;
   position: relative;
 
@@ -59,7 +59,7 @@
 
 .list__item__right {
   flex: 1;
-  border: 1px solid $white;
+  border: 2px solid $white;
   border-right: none;
   border-top: none;
   padding: 30px;
