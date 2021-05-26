@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/utils/*": ["utils/*"],
+      "@/providers": ["providers/index"],
+      "@/providers/*": ["providers/*"],
+      "@/components": ["components/index"],
+      "@/components/*": ["components/*"],
+      "@/form": ["form/index"],
+      "@/form/*": ["form/*"],
+      "@/widgets/*": ["widgets/*"],
+      "@/assets/*": ["assets/*"]
+    }
+  }
+}
