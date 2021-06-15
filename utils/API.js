@@ -16,7 +16,6 @@ export default class API {
   };
 
   get = async (path, options) => {
-    console.log(`${this.base}${path}`);
     try {
       const { data } = await axios.get(`${this.base}${path}`, options);
       return data;
@@ -35,8 +34,7 @@ export default class API {
       );
       return data;
     } catch (e) {
-      const details = this.stringify(e.response.data);
-      console.error(e, "\n" + details);
+      console.error(e);
       return { error: e.message || e };
     }
   };

@@ -94,56 +94,23 @@ export default function About({ page, skills, experiences, global }) {
 }
 
 export const getStaticProps = async () => {
-  const { about, experiences, skills, global } = await new API().graphql({
-    query: `
-      query GetAbout{
-        about {
-          title
-          subtitle
-          bio
-          avatar {
-            url
-          }
-        }
-        experiences {
-          id
-          title
-          slug
-          role
-          location
-          start_date
-          end_date
-          content
-          experience_roles {
-            role
-          }
-          logo {
-            url
-          }
-        }
-        skills {
-          id
-          title
-          icon
-        }
-        global {
-          github_url
-          linkedin_url
-          resume {
-            url
-          }
-        }
-      }
-      `,
-  });
+  const api = new API("http://localhost:3000");
+
+  const [page, experiences, global] = await Promise.all([
+    api.post("/api/pages", {
+      index: "pages_by_path",
+      path: "/about",
+      single: true,
+    }),
+    api.post("/api/experiences", { index: "all_experiences" }),
+    api.post("/api/global", { index: "all_global_items", single: true }),
+  ]);
 
   return {
     props: {
-      page: about,
-      experiences,
-      skills,
-      global,
+      page: { ref: page.ref, ts: page.ts, ...page.data },
+      experiences: experiences.map((exp) => ({ ref: exp.ref, ...exp.data })),
+      global: { ref: global.ref, ts: global.ts, ...global.data },
     },
-    revalidate: 5,
   };
 };
