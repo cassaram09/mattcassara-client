@@ -1,0 +1,29 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+._ {
+  display: flex;
+}
+
+.admin {
+  position: fixed;
+  z-index: 100;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  width: 400px;
+  background: red;
+}
+
+.content {
+  flex: 1;
+}
+
+.toggle {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  padding: 20px;
+  z-index: 1000;
+  background-color: red;
+}

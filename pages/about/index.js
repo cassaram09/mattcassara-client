@@ -6,7 +6,8 @@ import Reveal from "../../components/Reveal";
 import Title from "../../components/Title";
 import Skills from "../../components/Skills";
 import CTA from "../../components/CTA";
-
+import { useAppState } from "@/providers";
+import FieldWrapper from "@/components/FieldWrapper";
 const cl = _classes(styles);
 
 About.propTypes = {
@@ -23,11 +24,13 @@ About.defaultProps = {
   global: {},
 };
 
-export default function About({ page, skills, experiences, global }) {
+export default function About({ skills, experiences, global }) {
+  const { page } = useAppState();
+
   const renderTitle = () => (
-    <div className={cl("title")}>
+    <FieldWrapper name="title" className={cl("title")} type="textarea">
       <Title title={page.title} />
-    </div>
+    </FieldWrapper>
   );
 
   const renderAvatar = () => {
@@ -47,15 +50,15 @@ export default function About({ page, skills, experiences, global }) {
 
   const renderBio = () => (
     <Reveal preset={"fade"} delay={500} className={cl("bio")}>
-      <div className={cl("subtitle")}>
+      <FieldWrapper name="subtitle" className={cl("subtitle")} type="textarea">
         <Title title={page.subtitle} tag={"h2"} />
-      </div>
+      </FieldWrapper>
 
       <div className={cl("bio__inner")}>
-        <div
-          className={cl("bio__excerpt")}
-          dangerouslySetInnerHTML={{ __html: page.bio }}
-        ></div>
+        <FieldWrapper name="bio" className={cl("bio__excerpt")}>
+          <div dangerouslySetInnerHTML={{ __html: page.bio }}></div>
+        </FieldWrapper>
+
         <div className={cl("bio__avatar")}>{renderAvatar()}</div>
       </div>
 
@@ -108,7 +111,7 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      page: { ref: page.ref, ts: page.ts, ...page.data },
+      page: { ref: page.ref["@ref"].id, ts: page.ts, ...page.data },
       experiences: experiences.map((exp) => ({ ref: exp.ref, ...exp.data })),
       global: { ref: global.ref, ts: global.ts, ...global.data },
     },
