@@ -28,7 +28,7 @@ export default function About({ skills, experiences, global }) {
   const { page } = useAppState();
 
   const renderTitle = () => (
-    <FieldWrapper name="title" className={cl("title")} type="textarea">
+    <FieldWrapper name="title" className={cl("title")} type="text">
       <Title title={page.title} />
     </FieldWrapper>
   );
@@ -50,12 +50,12 @@ export default function About({ skills, experiences, global }) {
 
   const renderBio = () => (
     <Reveal preset={"fade"} delay={500} className={cl("bio")}>
-      <FieldWrapper name="subtitle" className={cl("subtitle")} type="textarea">
+      <FieldWrapper name="subtitle" className={cl("subtitle")} type="text">
         <Title title={page.subtitle} tag={"h2"} />
       </FieldWrapper>
 
       <div className={cl("bio__inner")}>
-        <FieldWrapper name="bio" className={cl("bio__excerpt")}>
+        <FieldWrapper name="bio" className={cl("bio__excerpt")} type="wysiwyg">
           <div dangerouslySetInnerHTML={{ __html: page.bio }}></div>
         </FieldWrapper>
 

@@ -1,0 +1,282 @@
+@import "./_variables.scss";
+@import "./_mixins.scss";
+
+.row {
+  display: block;
+  margin-bottom: 10px;
+
+  @include _minWidthMobile {
+    display: flex;
+  }
+}
+
+.field {
+  position: relative;
+  display: block;
+  padding: 0px 0px 20px;
+  border: none;
+  flex: 1;
+
+  label {
+    color: $black;
+  }
+
+  @include _minWidthMobile {
+    &:not(:last-of-type) {
+      margin-right: 30px;
+    }
+  }
+}
+
+.field-error {
+  position: absolute;
+  bottom: 0px;
+  left: 5px;
+  color: $errorRed;
+  @include _fontSize(12px, 12px);
+}
+
+.field-submit {
+  padding: 0px;
+}
+
+.field-checkbox,
+.field-radio {
+  display: flex;
+  align-items: center;
+
+  .control {
+    height: 16px;
+    width: 16px;
+  }
+}
+
+.control {
+  position: relative;
+}
+
+.input {
+  border: 1px solid $black;
+  display: block;
+  width: 100%;
+  height: 45px;
+  padding: 0px 10px;
+  background: $white;
+  color: $black;
+}
+
+.textarea {
+  border: 1px solid $black;
+  display: block;
+  width: 100%;
+  resize: none;
+  min-height: 45px;
+  padding: 10px;
+}
+
+.submit {
+  background: $white;
+  border: 1px solid $black;
+  padding: 7px 15px;
+  color: $black;
+}
+
+// checkbox
+.checkbox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+
+  &:checked ~ .checkbox-toggle {
+    div {
+      opacity: 1;
+    }
+  }
+}
+
+.checkbox-toggle {
+  transition: all 250ms ease-in-out;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 16px;
+  width: 16px;
+  background: $white;
+  opacity: 1;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  div {
+    transition: all 250ms ease-in-out;
+    content: "";
+    height: 100%;
+    width: 100%;
+    background: $electricBlue;
+    opacity: 0;
+    z-index: 1;
+  }
+}
+
+// radio
+.radio-group {
+}
+
+.radio {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+
+  &:checked ~ .radio-toggle {
+    div {
+      opacity: 1;
+    }
+  }
+}
+
+.radio-toggle {
+  transition: all 250ms ease-in-out;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 16px;
+  width: 16px;
+  border-radius: 100%;
+  background: $white;
+  opacity: 1;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  div {
+    border-radius: 100%;
+    transition: all 250ms ease-in-out;
+    content: "";
+    height: 100%;
+    width: 100%;
+    background: $electricBlue;
+    opacity: 0;
+    z-index: 1;
+  }
+}
+
+// React Select
+.select {
+  width: 100%;
+  height: 100%;
+  height: 45px;
+  background: $white;
+  cursor: pointer;
+
+  input.focus-visible {
+    outline: none !important;
+    outline: none !important;
+  }
+}
+
+div.select__control {
+  border-radius: 0px;
+  border: 1px solid $black;
+  background-color: transparent;
+  height: 100%;
+  transition: all 200ms ease-in-out;
+
+  &.select__control--is-focused {
+    outline: auto #4d90fe !important;
+    border-color: #4d90fe;
+  }
+
+  &:hover {
+    border-color: $black;
+  }
+
+  .select__indicators {
+    height: 100%;
+  }
+
+  .select__indicator {
+    color: $black;
+    padding: 10px 15px;
+  }
+  &.select__control--is-focused {
+    border-color: $black;
+    box-shadow: 0 0 1px 1px $white;
+  }
+}
+
+span.select__indicator-separator {
+  background-color: $black;
+}
+
+div.select__placeholder {
+  @include _fontSize(16px, 16px);
+  letter-spacing: 0px;
+}
+
+div.select__single-value {
+  @include _fontSize(16px, 16px);
+  letter-spacing: 0px;
+}
+
+div.select__menu {
+  top: initial;
+  border-radius: 0px;
+  border: none;
+  width: auto;
+  margin: 0px;
+  transform: translate(0, 100%);
+  bottom: -5px;
+  left: -5px;
+  right: -5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background: $white;
+  border-radius: 0px;
+  position: absolute;
+  z-index: 2;
+}
+
+div.select__menu-list {
+  border: 1px solid $black;
+  background: $white;
+  max-height: 200px;
+  overflow: scroll;
+  z-index: 1;
+}
+
+div.select__option {
+  transition: all 150ms linear;
+  color: $black;
+  background: $white;
+  cursor: pointer;
+  padding: 15px 25px;
+  @include _fontSize(13px, 14px);
+  &:hover {
+    color: $white;
+    background: $mediumGrey;
+  }
+
+  &.select__option--is-focused {
+    outline: auto $electricBlue !important;
+    border-color: #4d90fe;
+  }
+
+  &.select__option--is-selected {
+    background: $mediumGrey;
+    color: $white;
+  }
+}
+
+.form__thank_you {
+  color: $black;
+}

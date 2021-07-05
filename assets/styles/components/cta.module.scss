@@ -2,9 +2,12 @@
 @import "../global/_mixins.scss";
 
 ._ {
+  display: inline-flex;
+}
+.inner {
   cursor: pointer;
   text-transform: uppercase;
-  display: inline-flex;
+  display: block;
   text-decoration: none;
   transition: opacity 250ms ease-in-out;
   text-align: center;

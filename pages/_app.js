@@ -9,6 +9,7 @@ import Layout from "../components/Layout";
 import SiteLoader from "../components/SiteLoader";
 import API from "../utils/API";
 import { AppProvider, ViewportProvider } from "@/providers";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 App.propTypes = {
   nav: PropTypes.object,

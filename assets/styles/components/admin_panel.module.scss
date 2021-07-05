@@ -1,0 +1,24 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+._ {
+  position: fixed;
+  z-index: 100;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  width: 400px;
+  background: $white;
+  border-right: 4px solid grey;
+}
+
+.content {
+  padding: 20px;
+}
+
+.toggle,
+.save {
+  display: block;
+  border: 1px solid black;
+  color: black;
+}

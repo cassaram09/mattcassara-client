@@ -1,6 +1,7 @@
 import Link from "./Link";
 import styles from "../assets/styles/components/cta.module.scss";
 import { _classes } from "../utils/helpers";
+import FieldWrapper from "./FieldWrapper";
 
 const cl = _classes(styles);
 
@@ -37,12 +38,14 @@ export default function CTA({
   }
 
   return (
-    <Link
-      title={text}
-      className={[cl(["_", type, size]), className].join(" ")}
-      path={path}
-      onClick={onClick}
-      external={external}
-    />
+    <FieldWrapper name="a" type="link" className={cl(["_"].concat(className))}>
+      <Link
+        title={text}
+        className={[cl(["inner", type, size])].join(" ")}
+        path={path}
+        onClick={onClick}
+        external={external}
+      />
+    </FieldWrapper>
   );
 }

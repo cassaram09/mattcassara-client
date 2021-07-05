@@ -22,6 +22,7 @@ export function AppProvider({ children, page }) {
 
   const [transitioning, setTransition] = useState(false);
   const [activeField, setActiveField] = useState(null);
+  const [fieldType, setFieldType] = useState(null);
   const [_page, setPage] = useState(page);
   const [enabled, toggle] = useState(false);
   useEffect(() => {
@@ -32,15 +33,14 @@ export function AppProvider({ children, page }) {
     setPage({ ...page, [activeField]: value });
   };
 
-  const save = async () => {
+  const save = async (data) => {
     const api = new API("http://192.168.1.198:3000");
 
-    const data = await api.post("/api/save", {
+    // console.log(data, activeField, _page);
+    return api.post("/api/save", {
       ref: page.ref,
-      data: { [activeField]: _page[activeField] },
+      data,
     });
-
-    console.log(data);
   };
 
   return (
@@ -49,12 +49,14 @@ export function AppProvider({ children, page }) {
         transitioning,
         setTransition,
         activeField,
-        setActiveField: (name) => {
+        setActiveField: (name, type) => {
           if (name) {
             toggle(true);
             setActiveField(name);
+            setFieldType(type);
           } else {
             setActiveField(null);
+            setFieldType(null);
           }
         },
         page: _page,
@@ -62,6 +64,7 @@ export function AppProvider({ children, page }) {
         enabled,
         toggle,
         save,
+        fieldType,
       }}
     >
       {children}
