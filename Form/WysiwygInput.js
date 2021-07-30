@@ -2,7 +2,12 @@ import { Controller } from "react-hook-form/dist/index.ie11";
 import ErrorMessage from "./ErrorMessage";
 import Label from "./Label";
 import { useFormContext } from "../Form";
-import { Editor } from "react-draft-wysiwyg";
+import dynamic from "next/dynamic";
+
+const Editor = dynamic(
+  () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
+  { ssr: false }
+);
 
 WysiwygInput.propTypes = {
   name: PropTypes.string,

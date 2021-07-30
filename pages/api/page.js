@@ -14,17 +14,9 @@ module.exports = async (req, res) => {
     const db = client.db(process.env.MONGODB_DATABASE);
     const collection = db.collection("pages");
 
-    const updateResult = await collection.updateOne(
-      { path: req.body.path },
-      { $set: req.body.data }
-    );
+    const findResult = await collection.find({ path: req.body.path }).toArray();
 
-    if (updateResult.modifiedCount === 1) {
-      res.send(req.body.data);
-    } else {
-      res.send({ save: false });
-    }
-
+    res.send(findResult);
     client.close();
   } catch (e) {
     console.error(e);

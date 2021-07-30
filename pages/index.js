@@ -1,9 +1,9 @@
 import styles from "../assets/styles/pages/home.module.scss";
 import { _classes } from "../utils/helpers";
 import Title from "../components/Title";
-import API from "../utils/API";
 import { useEffect, useState } from "react";
 import Particles from "react-particles-js";
+import FieldWrapper from "@/components/FieldWrapper";
 
 const cl = _classes(styles);
 
@@ -31,7 +31,7 @@ export default function Home({ page }) {
   }, []);
 
   const setParticleParams = () => {
-    const params = page.particles_params;
+    const params = JSON.parse(page.particles_params);
 
     if (width === "mobile") {
       params.particles.number.value = 15;
@@ -49,14 +49,18 @@ export default function Home({ page }) {
             <div className={cl("title")}>
               <Title title={page.title} animation={"fadeLeft"} />
             </div>
-            <div className={cl("subtitle")}>
+            <FieldWrapper
+              name="subtitle"
+              className={cl("subtitle")}
+              type="text"
+            >
               <Title
                 title={page.subtitle}
-                tag="h2"
+                tag={"h2"}
                 delay={1000}
                 animation={"fadeRight"}
               />
-            </div>
+            </FieldWrapper>
           </div>
         </div>
       </div>
@@ -64,23 +68,38 @@ export default function Home({ page }) {
   );
 }
 
-export const getStaticProps = async () => {
-  const data = await new API().graphql({
-    query: `
-      query GetHome{
-        home {
-          title
-          subtitle
-          particles_params
-        }
-      }
-      `,
+const formatEntity = (entity) => {
+  const id = entity._id.toHexString();
+  delete entity._id;
+  return { ...entity, id };
+};
+
+export const getStaticProps = async (req) => {
+  const { MongoClient } = require("mongodb");
+
+  const uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@dsb-cluster-01.ifbzc.mongodb.net`;
+
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
 
-  return {
-    props: {
-      page: data.home,
-    },
-    revalidate: 5,
-  };
+  try {
+    await client.connect();
+    const db = client.db(process.env.MONGODB_DATABASE);
+    const collection = db.collection("pages");
+
+    const findResult = await collection.find({ path: "/" }).toArray();
+
+    client.close();
+
+    return {
+      props: {
+        page: formatEntity(findResult[0]),
+      },
+      revalidate: 5,
+    };
+  } catch (e) {
+    console.error(e);
+  }
 };

@@ -12,8 +12,6 @@ const AppContext = createContext({});
 export function AppProvider({ children, page }) {
   const router = useRouter();
 
-  console.log(page);
-
   useEffect(() => {
     const routeChangeComplete = () => setTransition(false);
 
@@ -36,9 +34,8 @@ export function AppProvider({ children, page }) {
   const save = async (data) => {
     const api = new API("http://192.168.1.198:3000");
 
-    // console.log(data, activeField, _page);
-    return api.post("/api/save", {
-      ref: page.ref,
+    api.post("/api/save", {
+      path: _page.path,
       data,
     });
   };
