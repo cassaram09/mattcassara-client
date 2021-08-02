@@ -1,0 +1,14 @@
+@import "../global/_variables.scss";
+@import "../global/_mixins.scss";
+
+._ {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.inner {
+  width: 300px;
+}

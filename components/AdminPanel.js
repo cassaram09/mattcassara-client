@@ -23,9 +23,19 @@ export default function AdminPanel({ enabled }) {
     toggle,
     setActiveField,
     fieldType,
+    user,
+    logout,
   } = useAppState();
 
+  if (!user || !page) {
+    return null;
+  }
+
   const renderFields = () => {
+    if (!activeField || !fieldType) {
+      return null;
+    }
+
     if (fieldType === "wysiwyg") {
       return (
         <div className="row">
@@ -50,6 +60,7 @@ export default function AdminPanel({ enabled }) {
       </div>
     );
   };
+
   return (
     <AnimatePresence exitBeforeEnter>
       {enabled && (
@@ -80,6 +91,11 @@ export default function AdminPanel({ enabled }) {
             </button>
           </div>
         </motion.div>
+      )}
+      {user && (
+        <div className={"logout_button"}>
+          <button onClick={logout}>LOGOUT</button>
+        </div>
       )}
     </AnimatePresence>
   );

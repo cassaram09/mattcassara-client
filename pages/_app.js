@@ -15,27 +15,6 @@ App.propTypes = {
   nav: PropTypes.object,
 };
 
-App.getInitialProps = async ({ Component, ctx }) => {
-  const data = await new API().graphql({
-    query: `
-      query GetMenu{
-        menu {
-          menu_items {
-            title
-            path
-          }
-        }
-        global {
-          github_url
-          linkedin_url
-        }
-      }
-      `,
-  });
-
-  return { nav: data.menu, global: data.global };
-};
-
 export default function App({ Component, pageProps, router, nav, global }) {
   const _props = {
     router,

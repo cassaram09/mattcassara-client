@@ -1,17 +1,13 @@
 require("dotenv").config();
-const { MongoClient } = require("mongodb");
+const service = require("@/services/MongoDBService");
 
-const uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@dsb-cluster-01.ifbzc.mongodb.net`;
-
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-module.exports = async (req, res) => {
+async function save(req, res) {
   try {
-    await client.connect();
-    const db = client.db(process.env.MONGODB_DATABASE);
+    await service.connect();
+
+    await service.validateRequest(req.headers["x-login-token"]);
+
+    const db = service.database();
     const collection = db.collection("pages");
 
     const updateResult = await collection.updateOne(
@@ -24,10 +20,12 @@ module.exports = async (req, res) => {
     } else {
       res.send({ save: false });
     }
-
-    client.close();
   } catch (e) {
     console.error(e);
     res.status(400).send({ error: e.message || e });
   }
-};
+
+  service.close();
+}
+
+module.exports = save;

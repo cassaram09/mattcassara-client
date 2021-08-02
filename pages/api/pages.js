@@ -1,20 +1,17 @@
 require("dotenv").config();
-
-var faunadb = require("faunadb");
+const service = require("@/services/MongoDBService");
 
 module.exports = async (req, res) => {
   try {
-    const Q = faunadb.query;
-    var client = new faunadb.Client({ secret: process.env.FAUNA_SECRET });
+    await service.connect();
+    const db = service.database();
+    const collection = db.collection("pages");
 
-    var { data } = await client.query(
-      Q.Map(
-        Q.Paginate(Q.Match(Q.Index(req.body.index), req.body.path)),
-        (page) => Q.Get(page)
-      )
-    );
+    const findResult = await collection.find({}).toArray();
 
-    res.send(req.body.single ? data[0] : data);
+    res.send(findResult);
+
+    service.close();
   } catch (e) {
     console.error(e);
     res.status(400).send({ error: e.message || e });

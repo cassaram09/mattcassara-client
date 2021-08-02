@@ -1,19 +1,21 @@
 require("dotenv").config();
 const service = require("@/services/MongoDBService");
 
-module.exports = async (req, res) => {
+async function save(req, res) {
   try {
     await service.connect();
-    const db = service.database();
-    const collection = db.collection("pages");
 
-    const findResult = await collection.findOne({ path: req.body.path });
+    const decoded = await service.validateRequest(req.headers["x-login-token"]);
 
-    res.send(findResult);
+    const user = await service.findUser(decoded.email);
+
+    res.send(user);
   } catch (e) {
     console.error(e);
     res.status(400).send({ error: e.message || e });
   }
 
   service.close();
-};
+}
+
+module.exports = save;

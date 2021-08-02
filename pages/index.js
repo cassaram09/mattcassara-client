@@ -4,6 +4,7 @@ import Title from "../components/Title";
 import { useEffect, useState } from "react";
 import Particles from "react-particles-js";
 import FieldWrapper from "@/components/FieldWrapper";
+import API from "@/utils/API";
 
 const cl = _classes(styles);
 
@@ -68,34 +69,21 @@ export default function Home({ page }) {
   );
 }
 
-const formatEntity = (entity) => {
-  const id = entity._id.toHexString();
-  delete entity._id;
-  return { ...entity, id };
-};
-
 export const getStaticProps = async (req) => {
-  const { MongoClient } = require("mongodb");
-
-  const uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@dsb-cluster-01.ifbzc.mongodb.net`;
-
-  const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  const service = require("@/services/MongoDBService");
 
   try {
-    await client.connect();
-    const db = client.db(process.env.MONGODB_DATABASE);
+    await service.connect();
+    const db = service.database();
     const collection = db.collection("pages");
 
-    const findResult = await collection.find({ path: "/" }).toArray();
+    const page = await collection.findOne({ path: "/" });
 
-    client.close();
+    service.close();
 
     return {
       props: {
-        page: formatEntity(findResult[0]),
+        page: service.formatEntity(page),
       },
       revalidate: 5,
     };

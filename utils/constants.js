@@ -1,1 +1,1 @@
-export const COOKIE = "landlordgrades_jwt";
+export const LOGIN_TOKEN = "dsb_login_token";

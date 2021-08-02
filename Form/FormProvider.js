@@ -23,12 +23,12 @@ export default function FormProvider({ children, onSubmit, onSuccess }) {
 
   const renderFields = () => !success && children;
 
-  const renderThankYou = () =>
-    success && (
-      <div className="form__thank_you">
-        <p>Changes saved.</p>
-      </div>
-    );
+  // const renderThankYou = () =>
+  //   success && (
+  //     <div className="form__thank_you">
+  //       <p>Changes saved.</p>
+  //     </div>
+  //   );
 
   const renderError = () =>
     error &&
@@ -39,19 +39,17 @@ export default function FormProvider({ children, onSubmit, onSuccess }) {
     );
 
   const submitHandler = handleSubmit((formData) => {
-    console.log(formData);
     onSubmit(formData)
       .then((resp) => {
         console.log(resp);
         if (resp.error) {
-          return setError(error.message || "An error occurred.");
+          return setError(resp.error || "An error occurred.");
         }
 
         setSuccess(true);
         onSuccess(resp, formData);
       })
       .catch((error) => {
-        console.error(error);
         setError(error.message || "An error occurred.");
       });
   });
@@ -66,7 +64,6 @@ export default function FormProvider({ children, onSubmit, onSuccess }) {
     >
       <form className="form" onSubmit={submitHandler}>
         {renderFields()}
-        {renderThankYou()}
         {renderError()}
       </form>
     </FormContext.Provider>

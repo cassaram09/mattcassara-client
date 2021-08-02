@@ -1,21 +1,29 @@
 require("dotenv").config();
 
-var faunadb = require("faunadb");
+const service = require("@/services/MongoDBService");
 
-module.exports = async (req, res) => {
+async function login(req, res) {
   try {
-    const Q = faunadb.query;
-    var client = new faunadb.Client({ secret: process.env.FAUNA_SECRET });
+    const { email, password } = req.body;
 
-    const user = await client.query(
-      Q.Login(Q.Match(Q.Index("users_by_email"), req.body.email), {
-        password: req.body.password,
-      })
-    );
+    if (!email) {
+      throw new Error("Email cannot be empty");
+    }
 
-    res.send({ token: user.secret });
+    if (!password) {
+      throw new Error("Password cannot be empty");
+    }
+
+    await service.connect();
+
+    const { user, token } = await service.loginUser({ email, password });
+
+    res.send({ token, user });
   } catch (e) {
-    console.error(e);
     res.status(400).send({ error: e.message || e });
   }
-};
+
+  service.close();
+}
+
+module.exports = login;

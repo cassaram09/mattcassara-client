@@ -6,7 +6,7 @@ Head.propTypes = {
 
 Head.defaultProps = {};
 
-export default function Head({ page }) {
+export default function Head({ page = {} }) {
   return (
     <NextHead>
       <title>{page.title || "Matt Cassara"}</title>

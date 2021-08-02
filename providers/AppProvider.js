@@ -1,6 +1,10 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import API from "@/utils/API";
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
+
+import { LOGIN_TOKEN } from "@/utils/constants";
 
 AppProvider.propTypes = {
   children: PropTypes.node,
@@ -8,6 +12,8 @@ AppProvider.propTypes = {
 };
 
 const AppContext = createContext({});
+
+const api = new API();
 
 export function AppProvider({ children, page }) {
   const router = useRouter();
@@ -18,11 +24,36 @@ export function AppProvider({ children, page }) {
     router.events.on("routeChangeComplete", routeChangeComplete);
   }, []);
 
+  useEffect(() => {
+    async function fetchUser() {
+      const token = getToken();
+      const user = decode(token);
+
+      if (user) {
+        api.setAuthHeader("X-Login-Token", token);
+        api
+          .post("/api/user")
+          .then((user) => {
+            if (user && user.id) {
+              setUser(user);
+            }
+          })
+          .catch((e) => {
+            console.error("error fetching user", e);
+          });
+      }
+    }
+
+    fetchUser();
+  }, []);
+
   const [transitioning, setTransition] = useState(false);
   const [activeField, setActiveField] = useState(null);
   const [fieldType, setFieldType] = useState(null);
   const [_page, setPage] = useState(page);
   const [enabled, toggle] = useState(false);
+  const [user, setUser] = useState(false);
+
   useEffect(() => {
     setPage(page);
   }, [router.asPath]);
@@ -32,14 +63,39 @@ export function AppProvider({ children, page }) {
   };
 
   const save = async (data) => {
-    const api = new API("http://192.168.1.198:3000");
-
     api.post("/api/save", {
       path: _page.path,
       data,
     });
   };
 
+  const logout = () => {
+    Cookies.remove(LOGIN_TOKEN);
+    api.headers = {};
+    setUser(null);
+    toggle(false);
+  };
+
+  const decode = (token) => {
+    try {
+      const user = token && jwt_decode(token);
+
+      if (user && user.id && Date.now() <= user.exp * 1000) {
+        return user;
+      }
+
+      return null;
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
+  };
+
+  const setToken = (token) => Cookies.set(LOGIN_TOKEN, token);
+
+  const getToken = () => Cookies.get(LOGIN_TOKEN);
+
+  console.log("USER", user);
   return (
     <AppContext.Provider
       value={{
@@ -62,6 +118,12 @@ export function AppProvider({ children, page }) {
         toggle,
         save,
         fieldType,
+        user,
+        api,
+        setToken,
+        logout,
+        setUser,
+        logout,
       }}
     >
       {children}

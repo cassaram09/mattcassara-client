@@ -19,7 +19,16 @@ export default function FieldWrapper({
   type,
   style,
 }) {
-  const { setActiveField, activeField } = useAppState();
+  const { setActiveField, activeField, user } = useAppState();
+
+  if (!user) {
+    return (
+      <div className={className} style={style}>
+        {children}
+      </div>
+    );
+  }
+
   return (
     <div
       className={

@@ -3,39 +3,68 @@ import axios from "axios";
 export default class API {
   constructor(url) {
     this.base = url || `${process.env.NEXT_PUBLIC_SERVER_URL}`;
+    this.headers = {};
   }
 
-  graphql = async (payload) => {
+  get = async (path, headers) => {
     try {
-      const { data } = await axios.post(`${this.base}/graphql`, payload);
-      return data.data;
+      const { data } = await axios.get(`${this.base}${path}`, {
+        headers: { ...this.headers, ...headers },
+      });
+      return data;
     } catch (e) {
-      console.error(e.error || e.message || e);
-      return { error: e.error || e.message || e };
+      const message = this.detailedError(e) || e.message || e;
+      console.error(`${this.base}${path}`, message);
+      return { error: message };
     }
   };
 
-  get = async (path, options) => {
+  post = async (path, payload, headers) => {
     try {
-      const { data } = await axios.get(`${this.base}${path}`, options);
+      const { data } = await axios.post(`${this.base}${path}`, payload, {
+        headers: { ...this.headers, ...headers },
+      });
       return data;
     } catch (e) {
-      console.error(e.error || e.message || e);
-      return { error: e.error || e.message || e };
+      const message = this.detailedError(e) || e.message || e;
+      console.error(`${this.base}${path}`, message);
+      return { error: message };
     }
   };
 
-  post = async (path, payload, options) => {
+  put = async (path, payload, headers) => {
     try {
-      const { data } = await axios.post(
-        `${this.base}${path}`,
-        payload,
-        options
-      );
+      const { data } = await axios.put(`${this.base}${path}`, payload, {
+        headers: { ...this.headers, ...headers },
+      });
       return data;
     } catch (e) {
-      console.error(e);
-      return { error: e.message || e };
+      const message = this.detailedError(e) || e.message || e;
+      console.error(`${this.base}${path}`, message);
+
+      return { error: message };
+    }
+  };
+
+  delete = async (path, headers) => {
+    try {
+      const { data } = await axios.delete(`${this.base}${path}`, {
+        headers: { ...this.headers, ...headers },
+      });
+      return data;
+    } catch (e) {
+      const message = this.detailedError(e) || e.message || e;
+      console.error(`${this.base}${path}`, message);
+
+      return { error: message };
+    }
+  };
+
+  detailedError = (e) => {
+    try {
+      return e.response && e.response.data && e.response.data.error;
+    } catch (error) {
+      return e;
     }
   };
 
@@ -44,6 +73,15 @@ export default class API {
       return JSON.stringify(object);
     } catch (e) {
       return object;
+    }
+  }
+
+  setAuthHeader(key, value) {
+    if (key && value) {
+      this.headers = {
+        ...this.headers,
+        [key]: value,
+      };
     }
   }
 }

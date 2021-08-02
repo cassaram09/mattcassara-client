@@ -7,10 +7,11 @@
       "@/providers/*": ["providers/*"],
       "@/components": ["components/index"],
       "@/components/*": ["components/*"],
-      "@/form": ["form/index"],
-      "@/form/*": ["form/*"],
+      "@/Form": ["Form/index"],
+      "@/Form/*": ["Form/*"],
       "@/widgets/*": ["widgets/*"],
-      "@/assets/*": ["assets/*"]
+      "@/assets/*": ["assets/*"],
+      "@/services/*": ["services/*"]
     }
   }
 }
