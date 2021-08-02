@@ -1,13 +1,13 @@
 import { AnimatePresence, motion } from "@/utils/FramerMotion";
 import { _classes } from "@/utils/helpers";
-import styles from "../assets/styles/components/admin_panel.module.scss";
-import { useAppState } from "@/providers";
+import styles from "./admin_panel.module.scss";
 import {
   StandardInput,
   SubmitInput,
   FormProvider,
   WysiwygInput,
-} from "../Form";
+} from "../../Form";
+import { useAdminContext } from "@/admin";
 
 const cl = _classes(styles);
 
@@ -25,7 +25,7 @@ export default function AdminPanel({ enabled }) {
     fieldType,
     user,
     logout,
-  } = useAppState();
+  } = useAdminContext();
 
   if (!user || !page) {
     return null;
@@ -93,7 +93,7 @@ export default function AdminPanel({ enabled }) {
         </motion.div>
       )}
       {user && (
-        <div className={"logout_button"}>
+        <div className={cl("logout_button")}>
           <button onClick={logout}>LOGOUT</button>
         </div>
       )}

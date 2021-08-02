@@ -1,8 +1,7 @@
 import styles from "@/assets/styles/pages/login.module.scss";
 import { _classes } from "@/utils/helpers";
 import { StandardInput, SubmitInput, FormProvider } from "@/Form";
-import { useRouter } from "next/router";
-import { useAppState } from "@/providers";
+import { useAdminContext } from "@/admin";
 
 const cl = _classes(styles);
 
@@ -11,15 +10,7 @@ Login.propTypes = {};
 Login.defaultProps = {};
 
 export default function Login() {
-  const { setUser, setToken, api } = useAppState();
-  const router = useRouter();
-
-  function success({ user, token }) {
-    setUser(user);
-    setToken(token);
-    api.setAuthHeader("X-Login-Token", token);
-    router.push("/");
-  }
+  const { login, api } = useAdminContext();
 
   return (
     <div className={cl("_")}>
@@ -32,7 +23,7 @@ export default function Login() {
               password: data.password,
             })
           }
-          onSuccess={success}
+          onSuccess={login}
         >
           <StandardInput
             name="email"

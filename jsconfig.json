@@ -11,7 +11,9 @@
       "@/Form/*": ["Form/*"],
       "@/widgets/*": ["widgets/*"],
       "@/assets/*": ["assets/*"],
-      "@/services/*": ["services/*"]
+      "@/services/*": ["services/*"],
+      "@/admin": ["admin/index"],
+      "@/admin/*": ["admin/*"]
     }
   }
 }

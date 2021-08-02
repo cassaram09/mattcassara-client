@@ -7,9 +7,9 @@ import Head from "../components/Head";
 import { motion, AnimatePresence } from "framer-motion";
 import Layout from "../components/Layout";
 import SiteLoader from "../components/SiteLoader";
-import API from "../utils/API";
 import { AppProvider, ViewportProvider } from "@/providers";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { AdminProvider } from "@/admin";
 
 App.propTypes = {
   nav: PropTypes.object,
@@ -29,21 +29,23 @@ export default function App({ Component, pageProps, router, nav, global }) {
   return (
     <ViewportProvider>
       <AppProvider {..._props}>
-        <Head page={_props.page} global={global} />
-        <Layout nav={nav} global={global} {...pageProps}>
-          <SiteLoader />
-          <AnimatePresence exitBeforeEnter>
-            <motion.div
-              key={router.route}
-              initial={{ opacity: 0 }}
-              exit={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="page"
-            >
-              <Component {...pageProps} key={router.route} />
-            </motion.div>
-          </AnimatePresence>
-        </Layout>
+        <AdminProvider page={pageProps.page}>
+          <Head page={_props.page} global={global} />
+          <Layout nav={nav} global={global} {...pageProps}>
+            <SiteLoader />
+            <AnimatePresence exitBeforeEnter>
+              <motion.div
+                key={router.route}
+                initial={{ opacity: 0 }}
+                exit={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="page"
+              >
+                <Component {...pageProps} key={router.route} />
+              </motion.div>
+            </AnimatePresence>
+          </Layout>
+        </AdminProvider>
       </AppProvider>
     </ViewportProvider>
   );

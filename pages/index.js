@@ -3,8 +3,7 @@ import { _classes } from "../utils/helpers";
 import Title from "../components/Title";
 import { useEffect, useState } from "react";
 import Particles from "react-particles-js";
-import FieldWrapper from "@/components/FieldWrapper";
-import API from "@/utils/API";
+import { FieldWrapper } from "@/admin";
 
 const cl = _classes(styles);
 

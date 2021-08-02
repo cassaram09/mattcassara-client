@@ -1,4 +1,8 @@
-import { useAppState } from "@/providers";
+import { useAdminContext } from "@/admin";
+import { _classes } from "@/utils/helpers";
+import styles from "./field_wrapper.module.scss";
+
+const cl = _classes(styles);
 
 FieldWrapper.propTypes = {
   children: PropTypes.node,
@@ -19,7 +23,7 @@ export default function FieldWrapper({
   type,
   style,
 }) {
-  const { setActiveField, activeField, user } = useAppState();
+  const { setActiveField, activeField, user } = useAdminContext();
 
   if (!user) {
     return (
@@ -31,14 +35,14 @@ export default function FieldWrapper({
 
   return (
     <div
-      className={
-        "field_wrapper " +
-        className +
-        `${activeField === name ? " active" : ""}`
-      }
+      className={cl([
+        "field_wrapper",
+        className,
+        activeField === name && "active",
+      ])}
       style={style}
     >
-      <div className={"field_wrapper__edit_button"}>
+      <div className={cl("field_wrapper__edit_button")}>
         <button onClick={() => setActiveField(name, type)}>Edit</button>
       </div>
       {children}

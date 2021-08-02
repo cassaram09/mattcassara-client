@@ -1,5 +1,5 @@
-@import "../global/_variables.scss";
-@import "../global/_mixins.scss";
+@import "@/assets/styles/global/_variables.scss";
+@import "@/assets/styles/global/_mixins.scss";
 
 ._ {
   position: fixed;
@@ -21,4 +21,16 @@
   display: block;
   border: 1px solid black;
   color: black;
+}
+
+.logout_button {
+  position: fixed;
+  z-index: 1000;
+  bottom: 20px;
+  right: 0px;
+  background: white;
+
+  button {
+    color: red;
+  }
 }
