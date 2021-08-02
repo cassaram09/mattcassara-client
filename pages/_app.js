@@ -8,6 +8,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Layout from "../components/Layout";
 import SiteLoader from "../components/SiteLoader";
 import { AppProvider, ViewportProvider } from "@/providers";
+
+//admin
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { AdminProvider } from "@/admin";
 
