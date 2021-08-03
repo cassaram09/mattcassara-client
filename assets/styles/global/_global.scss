@@ -243,3 +243,9 @@ input {
   bottom: -100px;
   z-index: 1;
 }
+
+.image {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}

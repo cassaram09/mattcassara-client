@@ -11,7 +11,7 @@ Image.defaultProps = {
 export default function Image({ src, alt, className }) {
   return (
     <div
-      className={`image image_${type} ${className}`}
+      className={`image ${className}`}
       style={{
         backgroundImage: `url('${src}')`,
       }}

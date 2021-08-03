@@ -1,5 +1,4 @@
-@import "@/assets/styles/global/_variables.scss";
-@import "@/assets/styles/global/_mixins.scss";
+@import "@/assets/styles/global/_parts.scss";
 
 ._ {
   position: fixed;
@@ -32,5 +31,54 @@
 
   button {
     color: red;
+  }
+}
+
+.toolbox {
+  width: 50px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px #7575759f;
+  top: 50%;
+  left: 0px;
+  position: fixed;
+  z-index: 20;
+  background: #eee;
+  padding: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: visible;
+}
+.controls {
+  position: relative;
+  z-index: 10;
+}
+
+.item {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  margin: 0px auto 10px;
+  position: relative;
+
+  &.visible {
+    background: grey;
+    path {
+      fill: $white;
+    }
+  }
+
+  svg {
+    width: 100%;
+  }
+
+  &.exit {
+    cursor: pointer;
+    path {
+      fill: $errorRed;
+    }
   }
 }

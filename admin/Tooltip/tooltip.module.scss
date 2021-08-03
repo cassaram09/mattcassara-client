@@ -1,0 +1,40 @@
+@import "@/assets/styles/global/_parts.scss";
+
+._ {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+
+  &:hover {
+    span {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  span {
+    visibility: hidden;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: -5px;
+    margin-left: -60px;
+    transform: translate(100%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+
+    &.top {
+      top: -5px;
+      right: unset;
+      left: 50%;
+      margin-left: 0px;
+      transform: translate(-50%, -100%);
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { _classes } from "@/utils/helpers";
 import Image from "@/admin/components/Image";
 import { closeIcon, deleteIcon } from "@/admin/components/Icons";
 import { useState } from "react";
-import { FileUpload } from "@/admin";
+import { FileUpload, useAdminContext } from "@/admin";
 
 const cl = _classes(styles);
 
@@ -16,6 +16,9 @@ MediaLibrary.propTypes = {
 };
 
 MediaLibrary.defaultProps = {
+  allowUpload: true,
+  allowDelete: true,
+  allowSelect: true,
   onSelect: () => null,
   onClose: () => null,
 };
@@ -26,6 +29,7 @@ export default function MediaLibrary({
   allowUpload,
   allowSelect,
 }) {
+  const { media } = useAdminContext();
   const [selected, setMedia] = useState();
 
   const selectMedia = (item) => {
@@ -69,7 +73,7 @@ export default function MediaLibrary({
 
   return (
     <div className={cl("_")}>
-      <button className={cl("close")} onClick={closeModal}>
+      <button className={cl("close")} onClick={onClose}>
         {closeIcon}
       </button>
       <div className={cl("wrapper")}>
@@ -89,7 +93,7 @@ export default function MediaLibrary({
         </div>
 
         <div className={cl("detail")}>
-          {allowUpload && renderUpload()}
+          {renderUpload()}
           {renderSelect()}
 
           <div className={cl("select")}>

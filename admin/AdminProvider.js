@@ -3,7 +3,8 @@ import API from "@/utils/API";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import { useRouter } from "next/router";
-import { AdminPanel } from "@/admin";
+import { AdminPanel, Modal } from "@/admin";
+import { mediaIcon } from "./components/Icons";
 
 const LOGIN_TOKEN = "dsb_login_token";
 
@@ -42,11 +43,27 @@ export function AdminProvider({ children, page }) {
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    api
+      .get("/api/media")
+      .then(setMedia)
+      .catch((e) => {
+        console.error("error fetching user", e);
+      });
+  }, []);
+
   const [activeField, setActiveField] = useState(null);
   const [fieldType, setFieldType] = useState(null);
   const [_page, setPage] = useState(page);
   const [enabled, toggle] = useState(false);
   const [user, setUser] = useState(false);
+  const [visible, setVisibility] = useState();
+  const [media, setMedia] = useState([]);
+  const [modalChildren, setChildren] = useState(null);
+
+  useEffect(() => {
+    setPage(page);
+  }, [page]);
 
   const updateField = (value) => {
     setPage({ ...page, [activeField]: value });
@@ -94,18 +111,17 @@ export function AdminProvider({ children, page }) {
 
   const uploadMedia = async (file) => {
     const formData = new FormData();
-    formData.append("files", file);
-    formData.append("path", domain);
+    formData.append("file", file);
 
     try {
-      // const data = await api.post(`/api/media`, formData);
+      const data = await api.post(`/api/media`, formData);
 
-      // if (data.error) {
-      //   throw Error(data.error);
-      // }
+      if (data.error) {
+        throw Error(data.error);
+      }
 
-      // setMedia([...media, ...data.map(strapiToData)]);
-      console.log("UPLOAD", id);
+      console.log(data);
+      setMedia([...media, data]);
     } catch (e) {
       console.error(e);
     }
@@ -151,9 +167,21 @@ export function AdminProvider({ children, page }) {
         logout,
         uploadMedia,
         deleteMedia,
+        visible,
+        children: modalChildren,
+        openModal: (node) => {
+          setVisibility(true);
+          setChildren(node);
+        },
+        closeModal: () => {
+          setVisibility(null);
+          setChildren(null);
+        },
+        media,
       }}
     >
       <AdminPanel enabled={enabled} />
+      <Modal />
       {children}
     </AdminContext.Provider>
   );
