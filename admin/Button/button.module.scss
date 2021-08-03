@@ -1,0 +1,44 @@
+@import "@/assets/styles/global/_parts.scss";
+
+._ {
+  display: flex;
+  align-items: center;
+  background: $adminBlue;
+  padding: 3px 5px 3px 10px;
+  border-radius: 5px;
+  border: 2px solid $adminBlue;
+  margin: 20px 0px;
+  transition: all 250ms ease-in-out;
+
+  &:hover {
+    background: white;
+
+    span {
+      color: $adminBlue;
+
+      path {
+        fill: $adminBlue;
+      }
+    }
+  }
+
+  span {
+    color: white;
+    fill: white;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 250ms ease-in-out;
+  }
+  svg {
+    padding: 0px;
+    margin-left: 5px;
+    height: 17px;
+
+    path {
+      fill: inherit;
+      transition: all 250ms ease-in-out;
+    }
+  }
+}

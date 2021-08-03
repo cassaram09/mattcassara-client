@@ -3,8 +3,7 @@ import API from "@/utils/API";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import { useRouter } from "next/router";
-import { AdminPanel, Modal } from "@/admin";
-import { mediaIcon } from "./components/Icons";
+import { AdminPanel, Modal, Notification } from "@/admin";
 
 const LOGIN_TOKEN = "dsb_login_token";
 
@@ -34,9 +33,7 @@ export function AdminProvider({ children, page }) {
               setUser(user);
             }
           })
-          .catch((e) => {
-            console.error("error fetching user", e);
-          });
+          .catch(errorHandler);
       }
     }
 
@@ -44,12 +41,7 @@ export function AdminProvider({ children, page }) {
   }, []);
 
   useEffect(() => {
-    api
-      .get("/api/media")
-      .then(setMedia)
-      .catch((e) => {
-        console.error("error fetching user", e);
-      });
+    api.get("/api/media").then(setMedia).catch(errorHandler);
   }, []);
 
   const [activeField, setActiveField] = useState(null);
@@ -60,6 +52,9 @@ export function AdminProvider({ children, page }) {
   const [visible, setVisibility] = useState();
   const [media, setMedia] = useState([]);
   const [modalChildren, setChildren] = useState(null);
+  const [notification, setNotification] = useState(null);
+
+  const closeNotification = () => setNotification(null);
 
   useEffect(() => {
     setPage(page);
@@ -70,10 +65,12 @@ export function AdminProvider({ children, page }) {
   };
 
   const save = async (data) => {
-    api.post("/api/save", {
-      path: _page.path,
-      data,
-    });
+    api
+      .post("/api/save", {
+        path: _page.path,
+        data,
+      })
+      .catch(errorHandler);
   };
 
   const login = ({ user, token }) => {
@@ -100,7 +97,7 @@ export function AdminProvider({ children, page }) {
 
       return null;
     } catch (e) {
-      console.error(e);
+      errorHandler(e);
       return null;
     }
   };
@@ -115,28 +112,50 @@ export function AdminProvider({ children, page }) {
 
     try {
       const data = await api.post(`/api/media`, formData);
+      if (data.error) {
+        throw Error(data.error);
+      }
+      setMedia([...media, data]);
+    } catch (e) {
+      errorHandler(e);
+    }
+  };
+
+  const updateMedia = async (image) => {
+    try {
+      const data = await api.patch(`/api/media`, {
+        alt: image.alt,
+        key: image.key,
+      });
 
       if (data.error) {
         throw Error(data.error);
       }
 
-      console.log(data);
-      setMedia([...media, data]);
+      const index = media.findIndex((item) => item.key === image.key);
+      const images = media.slice(0);
+      images[index] = image;
+      setMedia(images);
+      setNotification({ message: "Media saved", type: "success" });
     } catch (e) {
-      console.error(e);
+      errorHandler(e);
     }
   };
 
-  const deleteMedia = async (id) => {
+  const deleteMedia = async (key) => {
     try {
-      // const data = await api.delete(`/api/media/${id}`);
-
-      // console.log(data)
-      console.log("DELETE", id);
+      const data = await api.delete(`/api/media?key=${key}`);
+      if (data.error) {
+        throw Error(data.error);
+      }
+      setMedia(media.filter((item) => item.key !== key));
     } catch (e) {
-      console.error(e);
+      errorHandler(e);
     }
   };
+
+  const errorHandler = (e) =>
+    setNotification({ message: e.message, type: "danger" });
 
   return (
     <AdminContext.Provider
@@ -178,9 +197,11 @@ export function AdminProvider({ children, page }) {
           setChildren(null);
         },
         media,
+        updateMedia,
       }}
     >
       <AdminPanel enabled={enabled} />
+      <Notification notification={notification} close={closeNotification} />
       <Modal />
       {children}
     </AdminContext.Provider>

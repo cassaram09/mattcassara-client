@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
@@ -81,6 +81,10 @@ class MongoDBService {
         error ? reject(error) : resolve(decoded);
       });
     });
+  }
+
+  id(id) {
+    return ObjectId(id);
   }
 }
 

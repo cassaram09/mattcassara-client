@@ -4,11 +4,11 @@
 @import "global/mixins";
 @import "global/global";
 @import "global/form";
-
+@import "bulma/sass/utilities/_all.sass";
+@import "bulma/sass/elements/_all.sass";
 // @import "vendor/*";
 // @import "pages/*";
 // @import "components/*";
-
 .page {
   position: relative;
   // top: 60px;

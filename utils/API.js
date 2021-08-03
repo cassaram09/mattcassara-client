@@ -32,9 +32,9 @@ export default class API {
     }
   };
 
-  put = async (path, payload, headers) => {
+  patch = async (path, payload, headers) => {
     try {
-      const { data } = await axios.put(`${this.base}${path}`, payload, {
+      const { data } = await axios.patch(`${this.base}${path}`, payload, {
         headers: { ...this.headers, ...headers },
       });
       return data;

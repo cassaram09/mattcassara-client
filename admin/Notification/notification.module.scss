@@ -1,0 +1,10 @@
+@import "@/assets/styles/global/_parts.scss";
+
+div._ {
+  opacity: 1;
+  transform: translateY(0%) translateZ(0px);
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  margin-bottom: 0px !important;
+}

@@ -7,7 +7,7 @@ import Title from "../../components/Title";
 import Skills from "../../components/Skills";
 import CTA from "../../components/CTA";
 import { useAppState } from "@/providers";
-import FieldWrapper from "@/components/FieldWrapper";
+import { FieldWrapper } from "@/admin";
 const cl = _classes(styles);
 
 About.propTypes = {

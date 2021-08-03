@@ -4,5 +4,7 @@ export { default as FileUpload } from "./FileUpload/FileUpload";
 export { default as FieldWrapper } from "./FieldWrapper/FieldWrapper";
 export { default as Tooltip } from "./Tooltip/Tooltip";
 export { default as Modal } from "./Modal/Modal";
+export { default as Button } from "./Button/Button";
+export { default as Notification } from "./Notification/Notification";
 
 export { default as useAdminContext, AdminProvider } from "./AdminProvider";

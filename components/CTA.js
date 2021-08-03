@@ -1,7 +1,7 @@
 import Link from "./Link";
 import styles from "../assets/styles/components/cta.module.scss";
 import { _classes } from "../utils/helpers";
-import FieldWrapper from "./FieldWrapper";
+import { FieldWrapper } from "@/admin";
 
 const cl = _classes(styles);
 
